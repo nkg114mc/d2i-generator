@@ -1,0 +1,8 @@
+.DS_store
+.depend
+/.vscode
+
+d2i-gen
+
+*.o
+*d2i
