@@ -16,10 +16,7 @@ void BitWriter::initFile(std::string fileName) {
 }
 
 void BitWriter::close() {
-  flushBuffer();
-  if (startBit > 0) {
-    outf << buffer[0]; // for last bit padding
-  }
+  flushBufferAligned();
   outf.close();
 }
 
@@ -30,9 +27,6 @@ void BitWriter::writeBit(uint64_t value, int bits, bool reverse) {
   }
 
   for (int i = 0; i < bits; i++) {
-    //uint64_t mask = 1 << bits;
-    //mask -= 1;
-
     if (reverse) {
       uint8_t b = value & 0x1;
       value = value >> 1;
@@ -54,9 +48,16 @@ void BitWriter::flushBuffer() {
     }
     buffer[0] = buffer[startIdx];
     startIdx = 0;
-
-    //std::cout << "call flush" << std::endl;
   }
+}
+
+void BitWriter::flushBufferAligned() {
+  flushBuffer();
+  if (startBit > 0) {
+    outf << buffer[0]; // for last bit padding
+    startBit = 0;
+  }
+  buffer[0] = 0;
 }
 
 void BitWriter::addOneBit(uint8_t b) {

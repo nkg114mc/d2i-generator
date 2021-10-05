@@ -39,7 +39,8 @@ private:
   uint32_t convertTypeCode(const char* str4Code);
 
 public:
-
+  CommonItem(bool itemIsEar);
+  CommonItem();
   void writeHeader(BitWriter &writer);
   bool getIsEar();
 
@@ -57,15 +58,44 @@ public:
 	uint64_t positionX;
 	uint64_t positionY;
 	uint64_t altPositionID;
-  //uint64_t typeCode;
   std::string typeCodeChar;
   uint64_t nItemsInSockets;
 };
 
-struct ItemQuality {
-  int qualityID;
-  int lowQualityID;
+class ItemQuality {
+public:
+  virtual void writeQuality(BitWriter &writer) = 0;
 };
+
+class ItemQualityLow : public ItemQuality { 
+  void writeQuality(BitWriter &writer) {
+
+  }
+};
+class ItemQualityNormal : public ItemQuality {
+  void writeQuality(BitWriter &writer) {} // do nothing
+};
+class ItemQualityMagicEnhanced : public ItemQuality {
+  void writeQuality(BitWriter &writer) {
+
+  }
+};
+class ItemQualityRareCrafted : public ItemQuality {
+  void writeQuality(BitWriter &writer) {
+
+  }
+};
+class ItemQualityUnique : public ItemQuality {
+  void writeQuality(BitWriter &writer) {
+
+  }
+};
+class ItemQualityPartOfSet : public ItemQuality {
+  void writeQuality(BitWriter &writer) {
+
+  }
+};
+
 
 struct MagicAttribute {
 
@@ -139,7 +169,7 @@ public:
 */
 			
 	uint64_t givenRunewordCode; // MARK: Runeword data
-	char personName[64];
+	std::string personName;
   uint64_t timestamp;
 
   uint64_t defRating;
@@ -149,12 +179,18 @@ public:
   uint64_t totalNrOfSockets;
 	// setListValue
   std::vector<MagicAttribute> magicAttrList;
+  std::vector<MagicAttribute> runewordMagicAttrList;
+
+  // socketed items
+  std::vector<CommonItem> socketedItemList;
 
   void writeToFile(BitWriter &writer);
 
 private:
   void writeQuality();
-  void writeSingleMagic(MagicAttribute &magic) ;
+  void writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer);
+  void writeSingleMagic(MagicAttribute &magic);
+  void writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &writer);
   bool isTomeItem();
   bool isDurableItem();
   bool isQuantityItem();

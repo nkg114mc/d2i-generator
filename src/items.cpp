@@ -2,6 +2,13 @@
 #include <cassert>
 #include "items.h"
 
+CommonItem::CommonItem(bool itemIsEar) {
+  isEar = itemIsEar;
+}
+
+CommonItem::CommonItem() {
+  isEar = false; // not a ear by default
+}
 
 void CommonItem::writeHeader(BitWriter &writer) {
   if (isEar) {

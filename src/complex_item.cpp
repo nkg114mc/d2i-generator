@@ -36,7 +36,8 @@ void ComplexItem::writeToFile(BitWriter &writer) {
   writeQuality();
 
 	if (isGivenRuneword > 0) {
-    writer.writeBit(givenRunewordCode, 16, true);
+    writer.writeBit(givenRunewordCode, 12, true);
+		writer.writeBit(0, 4, true); // padding only
   }
 
   if (personalized) {
@@ -84,13 +85,13 @@ void ComplexItem::writeToFile(BitWriter &writer) {
     //parsed.MaxDurability = reverseBits(ibr.ReadBits64(8, true), 8)
 		//readBits += 8
     assert(maxDurability >= 0 && maxDurability < 256);
+		writer.writeBit(maxDurability, 8, true);
 
     // Some weapons like phase blades don't have durability, so we'll
 		// check if the item has max durability, then we can safely assume
 		// it has current durability too.
     if (maxDurability > 0) {
-      writer.writeBit(maxDurability, 8, true); // current durability
-      writer.writeBit(maxDurability, 9, true); // no idea what
+      writer.writeBit(maxDurability, 9, true); // current durability
     }
 
 				/*
@@ -125,6 +126,9 @@ void ComplexItem::writeToFile(BitWriter &writer) {
     writer.writeBit(totalNrOfSockets, 4, true);
 	}
 
+  // write magic attributes
+	writeMagicList(magicAttrList, writer);
+
 	//var setListValue uint64 = 0
   /*
 			if parsed.Quality == partOfSet {
@@ -140,12 +144,26 @@ void ComplexItem::writeToFile(BitWriter &writer) {
 			}
   */
 
-  // write magic attributes
-  for (int j = 0; j < magicAttrList.size(); j++) {
-    writeSingleMagic(magicAttrList[j]);
+ 	if (isGivenRuneword > 0) {
+    writeMagicList(runewordMagicAttrList, writer);
   }
-  writer.writeBit(0x1FF, 9, true);
 
+	// align to bytes
+	writer.flushBufferAligned();
+
+	// following socketed items
+	writeSocketedGems(socketedItemList, writer);
+}
+
+void ComplexItem::writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &writer) {
+	assert(socketed > 0);
+	assert(gems.size() <= totalNrOfSockets);
+	assert(gems.size() == nItemsInSockets);
+	for (int i = 0; i < gems.size(); i++) {
+		std::cout << gems[i].typeCodeChar << std::endl;
+		gems[i].writeHeader(writer);
+		writer.flushBufferAligned();
+	}
 }
 
 void ComplexItem::writeQuality() {
@@ -202,6 +220,13 @@ void ComplexItem::writeQuality() {
 				readBits += 12
 			}
 */
+}
+
+void ComplexItem::writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer) {
+  for (int j = 0; j < magicList.size(); j++) {
+    writeSingleMagic(magicList[j]);
+  }
+  writer.writeBit(0x1FF, 9, true);
 }
 
 void ComplexItem::writeSingleMagic(MagicAttribute &magic) {

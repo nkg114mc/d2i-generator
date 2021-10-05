@@ -22,6 +22,7 @@ public:
   BitWriter();
   void writeBit(uint64_t value, int bits, bool reverse);
   void initFile(std::string fileName);
+  void flushBufferAligned();
   void close();
 };
 
