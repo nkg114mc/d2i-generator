@@ -191,6 +191,7 @@ void insertRunes(ComplexItem &item, std::string *names, int length) {
     createRune(names[i], gem);
     item.socketedItemList.push_back(gem);
   }
+  item.nItemsInSockets = item.socketedItemList.size();
 }
 
 void createComplexItem(std::string fileName) {
@@ -207,7 +208,7 @@ void createComplexItem(std::string fileName) {
   item.simpleItem = 0;
   item.ethereal = 0;
 	item.personalized = 1;
-	item.isGivenRuneword = 1;
+	item.isGivenRuneword = 0;
 	item.version = 101;
 	item.locationID = 0;
 	item.equippedID = 0;
@@ -215,7 +216,7 @@ void createComplexItem(std::string fileName) {
 	item.positionY = 0;
 	item.altPositionID = 5;
   item.typeCodeChar = std::string("6lw ");
-  item.nItemsInSockets = 2;
+  item.nItemsInSockets = 0;
 
 
   // complex properties
@@ -225,7 +226,10 @@ void createComplexItem(std::string fileName) {
 
   item.globalID = rand();
 	item.level = 90;
-	item.quality = Normal;
+	item.quality = Unique;
+  //item.qualityData = new ItemQualityMagicEnhanced(132, 458);
+  //item.qualityData = new ItemQualityRareCrafted(0x9c, 0x1, 132,458,139,687,247,726);
+  item.qualityData = new ItemQualityUnique(159);
 	item.isMultiplePictures = 0;
 	item.pictureID = 0;
   item.isClassSpecific = 0;
@@ -241,15 +245,17 @@ void createComplexItem(std::string fileName) {
   item.totalNrOfSockets = 2;
 
   std::string runes[] = {"r09", "r05"};
-  insertRunes(item, runes, 2);
+  //insertRunes(item, runes, 2);
 
   item.writeToFile(writer);
   writer.close();
+
+  delete item.qualityData;
 }
 
 
 
 int main() {
-  createComplexItem("testitem4.d2i");
+  createComplexItem("testitem6.d2i");
   return 0;
 }

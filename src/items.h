@@ -67,38 +67,88 @@ public:
   virtual void writeQuality(BitWriter &writer) = 0;
 };
 
-class ItemQualityLow : public ItemQuality { 
-  void writeQuality(BitWriter &writer) {
-
-  }
+class ItemQualityLow : public ItemQuality {
+public:
+  uint64_t lowID;
+  ItemQualityLow(uint64_t id) { lowID = id; }
+  void writeQuality(BitWriter &writer);
 };
+
 class ItemQualityNormal : public ItemQuality {
-  void writeQuality(BitWriter &writer) {} // do nothing
+public:
+  void writeQuality(BitWriter &writer);
 };
+
 class ItemQualityMagicEnhanced : public ItemQuality {
-  void writeQuality(BitWriter &writer) {
-
+public:
+  uint64_t prefixID, suffixID;
+  ItemQualityMagicEnhanced(uint64_t id1, uint64_t id2) { 
+    prefixID = id1; suffixID = id2;
   }
+  void writeQuality(BitWriter &writer);
 };
+
 class ItemQualityRareCrafted : public ItemQuality {
-  void writeQuality(BitWriter &writer) {
-
+public:
+  uint64_t rareID1, rareID2;
+  uint64_t prefix[3];
+  uint64_t suffix[3];
+  int preCnt, sufCnt;
+  ItemQualityRareCrafted(uint64_t rare1, uint64_t rare2, 
+                         uint64_t pre1, uint64_t suf1, 
+                         uint64_t pre2, uint64_t suf2, 
+                         uint64_t pre3, uint64_t suf3) {
+    
+    rareID1 = rare1;
+    rareID2 = rare2;
+    preCnt = 0;
+    sufCnt = 0;
+    if (pre1 >= 0) {
+      prefix[preCnt] = pre1;
+      preCnt++;
+    }
+    if (pre2 >= 0) {
+      prefix[preCnt] = pre2;
+      preCnt++;
+    }
+    if (pre3 >= 0) {
+      prefix[preCnt] = pre3;
+      preCnt++;
+    }
+    if (suf1 >= 0) {
+      suffix[sufCnt] = suf1;
+      sufCnt++;
+    }
+    if (suf2 >= 0) {
+      suffix[sufCnt] = suf2;
+      sufCnt++;
+    }
+    if (suf3 >= 0) {
+      suffix[sufCnt] = suf3;
+      sufCnt++;
+    }
   }
+  void writeQuality(BitWriter &writer);
 };
+
 class ItemQualityUnique : public ItemQuality {
-  void writeQuality(BitWriter &writer) {
-
-  }
+public:
+  uint64_t uniqueID;
+  ItemQualityUnique(uint64_t id) { uniqueID = id; }
+  void writeQuality(BitWriter &writer);
 };
-class ItemQualityPartOfSet : public ItemQuality {
-  void writeQuality(BitWriter &writer) {
 
-  }
+class ItemQualityPartOfSet : public ItemQuality {
+public: 
+  uint64_t setID;
+  ItemQualityPartOfSet(uint64_t id) { setID = id; }
+  void writeQuality(BitWriter &writer);
 };
 
 
 struct MagicAttribute {
-
+  int valueCount;
+  int Bits[4];
 };
 
 class ComplexItem : public CommonItem {
@@ -176,6 +226,7 @@ public:
   uint64_t maxDurability;
 	uint64_t currentDurability;
   uint64_t quantity;
+  ItemQuality *qualityData;
   uint64_t totalNrOfSockets;
 	// setListValue
   std::vector<MagicAttribute> magicAttrList;
@@ -187,7 +238,7 @@ public:
   void writeToFile(BitWriter &writer);
 
 private:
-  void writeQuality();
+  void writeQuality(BitWriter &writer);
   void writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer);
   void writeSingleMagic(MagicAttribute &magic);
   void writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &writer);
@@ -199,6 +250,7 @@ private:
 
 // utils
 int getBigType(std::string code);
+bool isValidID(uint64_t id, const uint64_t *idSet, int setSize);
 
 // consts
 extern const int AmorCodeLength;

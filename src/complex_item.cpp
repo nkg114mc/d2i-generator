@@ -33,7 +33,7 @@ void ComplexItem::writeToFile(BitWriter &writer) {
   }
 
   // write quality info
-  writeQuality();
+  writeQuality(writer);
 
 	if (isGivenRuneword > 0) {
     writer.writeBit(givenRunewordCode, 12, true);
@@ -166,7 +166,7 @@ void ComplexItem::writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &wr
 	}
 }
 
-void ComplexItem::writeQuality() {
+void ComplexItem::writeQuality(BitWriter &writer) {
 /*
 			switch parsed.Quality {
 			case lowQuality:
@@ -220,6 +220,8 @@ void ComplexItem::writeQuality() {
 				readBits += 12
 			}
 */
+	assert(qualityData != nullptr);
+	qualityData->writeQuality(writer);
 }
 
 void ComplexItem::writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer) {

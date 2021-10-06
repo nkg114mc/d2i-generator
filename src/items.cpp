@@ -121,3 +121,12 @@ uint32_t CommonItem::convertTypeCode(const char* str4Code) {
   }
   return res;
 }
+
+bool isValidID(uint64_t id, const uint64_t *idSet, int setSize) {
+  for (int i = 0; i < setSize; i++) {
+    if (id == idSet[i]) {
+      return true;
+    }
+  }
+  return false;
+}

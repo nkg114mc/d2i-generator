@@ -2,7 +2,7 @@
 
 EXE = d2i-gen
 
-OBJS = main.o bitwriter.o items.o complex_item.o item_const.o
+OBJS = main.o bitwriter.o items.o complex_item.o item_const.o item_quality.o
 
 # rules
 
