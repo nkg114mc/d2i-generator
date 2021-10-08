@@ -59,33 +59,3 @@ void ItemQualityPartOfSet::writeQuality(BitWriter &writer) {
   assert(isValidID(setID, SetNames, SetNamesLength));
   writer.writeBit(setID, 12, true);
 }
-
-/*
-ItemQuality* QualityFactory::createQuality(uint) {
-
-}
-
-ItemQuality* QualityFactory::createMagicQuality(uint) {
-
-}
-
-
-ItemQuality* QualityFactory::createRareQuality(uint) {
-
-}
-*/
-
-/*
-const uint64_t RunewordNames[] 
-
-const int AmorCodeLength = 149;
-const int WeaponCodeLength = 306;
-const int ShieldCodeLength = 53;
-const int QuantityCodeLength = 41;
-const int TomeCodeLength = 2;
-const int RareNamesLength = 201;
-const int  = 127;
-
-const int RunewordNamesLength = 79;
-const int  = 401;
-*/

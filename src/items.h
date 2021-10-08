@@ -146,9 +146,27 @@ public:
 };
 
 
+struct MagicValue {
+  uint64_t bits;
+  uint64_t value;
+  MagicValue(int b, int v) {
+    bits = b; value = v;
+  }
+  MagicValue() {}
+};
+
+struct MagicProperty {
+  int code;
+  int nCnt;
+  int bits[4];
+  int bias;
+  std::string desc;
+};
+
 struct MagicAttribute {
+  uint64_t propCode;
   int valueCount;
-  int Bits[4];
+  MagicValue mValues[4];
 };
 
 class ComplexItem : public CommonItem {
@@ -240,7 +258,7 @@ public:
 private:
   void writeQuality(BitWriter &writer);
   void writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer);
-  void writeSingleMagic(MagicAttribute &magic);
+  void writeSingleMagic(MagicAttribute &magic, BitWriter &writer);
   void writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &writer);
   bool isTomeItem();
   bool isDurableItem();
@@ -251,6 +269,12 @@ private:
 // utils
 int getBigType(std::string code);
 bool isValidID(uint64_t id, const uint64_t *idSet, int setSize);
+
+void addUnaryMagic(ComplexItem &item, int code, MagicValue &value);
+void addBinaryMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2);
+void addTrippleMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3);
+void addQuadMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3, MagicValue &value4);
+void initMagics();
 
 // consts
 extern const int AmorCodeLength;
@@ -277,5 +301,7 @@ extern const uint64_t RunewordNames[];
 extern const uint64_t UniqueNames[];
 extern const uint64_t MagicalPrefixes[];
 extern const uint64_t MagicalSuffixes[];
+
+extern MagicProperty existMagics[];
 
 #endif

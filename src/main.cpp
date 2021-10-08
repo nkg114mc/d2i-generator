@@ -194,6 +194,28 @@ void insertRunes(ComplexItem &item, std::string *names, int length) {
   item.nItemsInSockets = item.socketedItemList.size();
 }
 
+void createAttr(MagicAttribute &magic, 
+                MagicProperty &prop) {
+  magic.propCode = prop.code;
+  magic.valueCount = prop.nCnt;
+  for (int j = 0; j < prop.nCnt; j++) {
+    int v = (1 << prop.bits[j]) - 1;
+    MagicValue mValue(prop.bits[j], v);
+    magic.mValues[j] = mValue;
+  }
+}
+
+void insertMagics(ComplexItem &item) {
+  //for (int i = 0; i < 149; i++) {
+  for (int i = 59; i < 149; i++) {
+    // print property
+    std::cout << existMagics[i].code << ": " <<  existMagics[i].desc << std::endl;
+    MagicAttribute magic;
+    createAttr(magic, existMagics[i]);
+    item.magicAttrList.push_back(magic);
+  }
+}
+
 void createComplexItem(std::string fileName) {
 
   BitWriter writer;
@@ -247,6 +269,9 @@ void createComplexItem(std::string fileName) {
   std::string runes[] = {"r09", "r05"};
   //insertRunes(item, runes, 2);
 
+  // add magics
+  insertMagics(item);
+
   item.writeToFile(writer);
   writer.close();
 
@@ -256,6 +281,7 @@ void createComplexItem(std::string fileName) {
 
 
 int main() {
-  createComplexItem("testitem6.d2i");
+  initMagics();
+  createComplexItem("testitem83.d2i");
   return 0;
 }

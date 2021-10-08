@@ -206,7 +206,7 @@ void ComplexItem::writeQuality(BitWriter &writer) {
 				readBits += 12
 
 			case rare, crafted:
-				rBits, _ := parseRareOrCraftedBits(&ibr, &parsed)
+				rBits, _ := parseRareOrCraftedBits(&ibr, &parsed) 
 				readBits += rBits
 
 			case unique:
@@ -226,13 +226,18 @@ void ComplexItem::writeQuality(BitWriter &writer) {
 
 void ComplexItem::writeMagicList(std::vector<MagicAttribute> &magicList, BitWriter &writer) {
   for (int j = 0; j < magicList.size(); j++) {
-    writeSingleMagic(magicList[j]);
+    writeSingleMagic(magicList[j], writer);
   }
   writer.writeBit(0x1FF, 9, true);
 }
 
-void ComplexItem::writeSingleMagic(MagicAttribute &magic) {
-
+void ComplexItem::writeSingleMagic(MagicAttribute &magic, BitWriter &writer) {
+	// write property code
+	writer.writeBit(magic.propCode, 9, true);
+	// write property values
+	for (int i = 0; i < magic.valueCount; i++) {
+		writer.writeBit(magic.mValues[i].value, magic.mValues[i].bits, true);
+	}
 }
 
 bool ComplexItem::isTomeItem() {
