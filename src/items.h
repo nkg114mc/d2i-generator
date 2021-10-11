@@ -5,6 +5,8 @@
 #include <vector>
 #include "bitwriter.h"
 
+using std::vector;
+
 enum {
   ITEM_MISC, ITEM_AMOR, ITEM_WEAPON, ITEM_SHIELD
 };
@@ -181,60 +183,6 @@ public:
 	uint64_t pictureID;
   uint64_t isClassSpecific;
   uint64_t classSpecificCode;
-  
-/*
-			switch parsed.Quality {
-			case lowQuality:
-				parsed.LowQualityID = reverseBits(ibr.ReadBits64(3, true), 3)
-				readBits += 3
-
-			case normal:
-			// No extra data present
-
-			case highQuality:
-				// TODO: Figure out what these 3 bits are on a high quality item
-				_ = reverseBits(ibr.ReadBits64(3, true), 3)
-				readBits += 3
-
-			case magicallyEnhanced:
-				parsed.MagicPrefix = reverseBits(ibr.ReadBits64(11, true), 11)
-				prefixName, ok := magicalPrefixes[parsed.MagicPrefix]
-				if ok {
-					parsed.MagicPrefixName = prefixName
-				}
-
-				parsed.MagicSuffix = reverseBits(ibr.ReadBits64(11, true), 11)
-				suffixName, ok := magicalSuffixes[parsed.MagicSuffix]
-				if ok {
-					parsed.MagicSuffixName = suffixName
-				}
-				readBits += 22
-
-			case partOfSet:
-				parsed.SetID = reverseBits(ibr.ReadBits64(12, true), 12)
-
-				setName, ok := setNames[parsed.SetID]
-				if ok {
-					parsed.SetName = setName
-				}
-
-				readBits += 12
-
-			case rare, crafted:
-				rBits, _ := parseRareOrCraftedBits(&ibr, &parsed)
-				readBits += rBits
-
-			case unique:
-				parsed.UniqueID = reverseBits(ibr.ReadBits64(12, true), 12)
-
-				uniqueName, ok := uniqueNames[parsed.UniqueID]
-				if ok {
-					parsed.UniqueName = uniqueName
-				}
-
-				readBits += 12
-			}
-*/
 			
 	uint64_t givenRunewordCode; // MARK: Runeword data
 	std::string personName;
@@ -247,11 +195,14 @@ public:
   ItemQuality *qualityData;
   uint64_t totalNrOfSockets;
 	// setListValue
-  std::vector<MagicAttribute> magicAttrList;
-  std::vector<MagicAttribute> runewordMagicAttrList;
+  vector<MagicAttribute> magicAttrList;
+  // set magic
+  vector<vector<MagicAttribute> > setMagicAttrListList;
+  // runeword magics
+  vector<MagicAttribute> runewordMagicAttrList;
 
   // socketed items
-  std::vector<CommonItem> socketedItemList;
+  vector<CommonItem> socketedItemList;
 
   void writeToFile(BitWriter &writer);
 
@@ -275,6 +226,7 @@ void addBinaryMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue 
 void addTrippleMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3);
 void addQuadMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3, MagicValue &value4);
 void initMagics();
+void readuStats();
 
 // consts
 extern const int AmorCodeLength;
@@ -303,5 +255,8 @@ extern const uint64_t MagicalPrefixes[];
 extern const uint64_t MagicalSuffixes[];
 
 extern MagicProperty existMagics[];
+extern MagicProperty indexedMagics[512];
+extern MagicProperty ustatsMagics[512];
+extern MagicProperty hiringBowMagics[];
 
 #endif

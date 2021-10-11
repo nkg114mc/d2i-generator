@@ -53,11 +53,6 @@ void ComplexItem::writeToFile(BitWriter &writer) {
 	// If the item is a tome, it will contain 5 extra bits, we're not
 	// interested in these bits, the value is usually 1, but not sure
 	// what it is.
-  /*
-	if tomeMap[parsed.Type] {
-		_ = reverseBits(ibr.ReadBits64(5, true), 5)
-		readBits += 5
-	}*/
   if (isTomeItem()) {
     writer.writeBit(0x1F, 5, true);
   }
@@ -66,24 +61,15 @@ void ComplexItem::writeToFile(BitWriter &writer) {
 
 	if (bigItemType == ITEM_AMOR || bigItemType == ITEM_SHIELD) {
 		std::cout << "This is a defense item." << std::endl;
-    /*
-				// If the item is an armor, it will have this field of defense data.
-				defRating := reverseBits(ibr.ReadBits64(11, true), 11)
-				readBits += 11
-
-				// We need to subtract 10 defense rating from all armors for
-				// some reason, I'm not sure why.
-				parsed.DefenseRating = int64((defRating - 10))
-    */
+    
+		// If the item is an armor, it will have this field of defense data.
     assert(defRating >= 0 && defRating < 2048);
     writer.writeBit(defRating, 11, true);
 	}
 
 	if (bigItemType == ITEM_AMOR || bigItemType == ITEM_WEAPON || bigItemType == ITEM_SHIELD) {
 		std::cout << "This is a durable item." << std::endl;
-      
-    //parsed.MaxDurability = reverseBits(ibr.ReadBits64(8, true), 8)
-		//readBits += 8
+
     assert(maxDurability >= 0 && maxDurability < 256);
 		writer.writeBit(maxDurability, 8, true);
 
@@ -93,15 +79,6 @@ void ComplexItem::writeToFile(BitWriter &writer) {
     if (maxDurability > 0) {
       writer.writeBit(maxDurability, 9, true); // current durability
     }
-
-				/*
-				if parsed.MaxDurability > 0 {
-					parsed.CurrentDurability = reverseBits(ibr.ReadBits64(8, true), 8)
-					// Seems to be a random bit here.
-					_ = reverseBits(ibr.ReadBits64(1, true), 1)
-
-					readBits += 9
-				}*/
 	}
 
   if (isQuantityItem()) {
@@ -126,23 +103,45 @@ void ComplexItem::writeToFile(BitWriter &writer) {
     writer.writeBit(totalNrOfSockets, 4, true);
 	}
 
+	// set magic list length
+	// If the item is part of a set, these bit will tell us how many lists
+	// of magical properties follow the one regular magical property list.
+	if (quality == PartOfSet) {
+		// 0 --> 00000 = 0
+		// 1 --> 00001 = 1
+		// 2 --> 00011 = 3
+		// 3 --> 00111 = 7
+		// 4 --> 01111 = 15
+		// 5 --> 11111 = 31
+		uint64_t lenBits[6] = {0, 1, 3, 7, 15, 31};
+
+		// write list number
+		assert(setMagicAttrListList.size() <= 5); // at most 5 lists
+		uint64_t setListLen = lenBits[setMagicAttrListList.size()];
+		writer.writeBit(setListLen, 5, true);
+	}
+
   // write magic attributes
 	writeMagicList(magicAttrList, writer);
 
-	//var setListValue uint64 = 0
-  /*
-			if parsed.Quality == partOfSet {
-				setListValue = reverseBits(ibr.ReadBits64(5, true), 5)
-				readBits += 5
+ 	// set magic lists
+	if (quality == PartOfSet &&
+	    setMagicAttrListList.size() > 0) {
+				/*
+		// 0 --> 00000 = 0
+		// 1 --> 00001 = 1
+		// 2 --> 00011 = 3
+		// 3 --> 00111 = 7
+		// 4 --> 01111 = 15
+		// 5 --> 11111 = 31
+		uint64_t lenBits[6] = {0, 1, 3, 7, 15, 31};
 
-				listCount, ok := setListMap[setListValue]
-				if !ok {
-					return []Item{}, fmt.Errorf("unknown set list number %d", setListValue)
-				}
-
-				parsed.SetListCount = listCount
-			}
-  */
+		// write list number
+		assert(setMagicAttrListList.size() <= 5); // at most 5 lists
+		uint64_t setListLen = lenBits[setMagicAttrListList.size()];
+		writer.writeBit(setListLen, 5, true);
+		*/
+	}
 
  	if (isGivenRuneword > 0) {
     writeMagicList(runewordMagicAttrList, writer);
@@ -167,59 +166,6 @@ void ComplexItem::writeSocketedGems(std::vector<CommonItem> &gems, BitWriter &wr
 }
 
 void ComplexItem::writeQuality(BitWriter &writer) {
-/*
-			switch parsed.Quality {
-			case lowQuality:
-				parsed.LowQualityID = reverseBits(ibr.ReadBits64(3, true), 3)
-				readBits += 3
-
-			case normal:
-			// No extra data present
-
-			case highQuality:
-				// TODO: Figure out what these 3 bits are on a high quality item
-				_ = reverseBits(ibr.ReadBits64(3, true), 3)
-				readBits += 3
-
-			case magicallyEnhanced:
-				parsed.MagicPrefix = reverseBits(ibr.ReadBits64(11, true), 11)
-				prefixName, ok := magicalPrefixes[parsed.MagicPrefix]
-				if ok {
-					parsed.MagicPrefixName = prefixName
-				}
-
-				parsed.MagicSuffix = reverseBits(ibr.ReadBits64(11, true), 11)
-				suffixName, ok := magicalSuffixes[parsed.MagicSuffix]
-				if ok {
-					parsed.MagicSuffixName = suffixName
-				}
-				readBits += 22
-
-			case partOfSet:
-				parsed.SetID = reverseBits(ibr.ReadBits64(12, true), 12)
-
-				setName, ok := setNames[parsed.SetID]
-				if ok {
-					parsed.SetName = setName
-				}
-
-				readBits += 12
-
-			case rare, crafted:
-				rBits, _ := parseRareOrCraftedBits(&ibr, &parsed) 
-				readBits += rBits
-
-			case unique:
-				parsed.UniqueID = reverseBits(ibr.ReadBits64(12, true), 12)
-
-				uniqueName, ok := uniqueNames[parsed.UniqueID]
-				if ok {
-					parsed.UniqueName = uniqueName
-				}
-
-				readBits += 12
-			}
-*/
 	assert(qualityData != nullptr);
 	qualityData->writeQuality(writer);
 }

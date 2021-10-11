@@ -1,138 +1,12 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include <cassert>
+#include <algorithm>
 
 #include "bitwriter.h"
 #include "items.h"
-
-
-/*
-
-void writeHeader(CommonItem &item, BitWriter &writer) {
-
-  int headj = (int)'J';
-  writer.writeBit(headj, 8, true);
-  int headm = (int)'M';
-  writer.writeBit(headm, 8, true);
-
-  // unknown
-  writer.writeBit(0, 4, true);
-
-  // offset: 20
-  writer.writeBit(item.identified, 1, true);
-
-	//item.Identified = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-
-	// offset: 21, unknown
-  writer.writeBit(0, 6, true);
-
-	// offset: 27
-	//item.Socketed = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.socketed, 1, true);
-
-	// offset 28, unknown
-	//ibr.ReadBits64(1, true)
-	//readBits++
-  writer.writeBit(0, 1, true);
-
-	// offset 29
-	//item.New = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.newbee, 1, true);
-
-	// offset 30, unknown
-	//_ = reverseBits(ibr.ReadBits64(2, true), 2)
-	//readBits += 2
-  writer.writeBit(0, 2, true);
-
-	// offset 32
-	//item.IsEar = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(0, 1, true); // not ear
-
-	// offset 33
-	//item.StarterItem = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.starterItem, 1, true);
-
-	// offset 34, unknown
-	//_ = reverseBits(ibr.ReadBits64(3, true), 3)
-	//readBits += 3
-  writer.writeBit(0, 3, true);
-
-	// offset 37, if it's a simple item, it only contains 111 bits data
-	//item.SimpleItem = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.simpleItem, 1, true);
-
-	// offset 38
-	//item.Ethereal = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.ethereal, 1, true);
-
-	// offset 39, unknown
-	//_ = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(0, 1, true);
-
-	// offset 40
-	//item.Personalized = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.personalized, 1, true);
-
-	// offset 41, unknown
-	//_ = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(0, 1, true);
-
-	// offset 42
-	//item.GivenRuneword = reverseBits(ibr.ReadBits64(1, true), 1)
-	//readBits++
-  writer.writeBit(item.isGivenRuneword, 1, true);
-
-	// offset 43, unknown
-	//_ = reverseBits(ibr.ReadBits64(5, true), 5)
-	//readBits += 5
-  writer.writeBit(0, 5, true);
-
-	// offset 48
-	//item.Version = reverseBits(ibr.ReadBits64(8, true), 8)
-	//readBits += 8
-  writer.writeBit(item.version, 8, true);
-
-	// offset 56, unknown
-	//_ = reverseBits(ibr.ReadBits64(2, true), 2)
-	//readBits += 2
-  writer.writeBit(0, 2, true);
-
-	// offset 58
-  writer.writeBit(item.locationID, 3, true);
-
-	// offset 61
-  writer.writeBit(item.equippedID, 4, true);
-
-	// offset 65
-  writer.writeBit(item.positionX, 4, true);
-
-	// offset 69
-  writer.writeBit(item.positionY, 3, true);
-
-	// offset 72
-  writer.writeBit(0, 1, true);
-
-	// offset 73, if item is neither equipped or in the belt, this tells us where it is.
-  writer.writeBit(item.altPositionID, 3, true);
-
-	// offset 76, item type, 4 chars, each 8 bit (not byte aligned)
-  item.copyCode(const char* src)
-  writer.writeBit(item.typeCode, 32, true);
-	
-  // offset 108
-  writer.writeBit(item.nItemsInSockets, 3, true);
-
-}
-*/
 
 
 void createItem(std::string fileName) {
@@ -216,6 +90,61 @@ void insertMagics(ComplexItem &item) {
   }
 }
 
+void insertMagics2(ComplexItem &item) {
+
+  int mIdxs[] = { 204 };
+
+  for (int i = 0; i < 10; i++) {
+    int j = mIdxs[i];
+    MagicAttribute magic;
+    createAttr(magic, indexedMagics[j]);
+    item.magicAttrList.push_back(magic);
+  }
+}
+
+void insertMagics3(ComplexItem &item) {
+  for (int i = 0; i < 200; i++) {
+    if (ustatsMagics[i].nCnt == 1) {
+      std::cout << ustatsMagics[i].code << ": " << ustatsMagics[i].desc << std::endl;
+      MagicAttribute magic;
+      createAttr(magic, ustatsMagics[i]);
+      item.magicAttrList.push_back(magic);
+    }
+  }
+}
+
+void insertMagics4(ComplexItem &item) {
+  int flag[400];
+  for (int i = 0; i < 400; i++) {
+    flag[i] = 0;
+    if (ustatsMagics[i].nCnt == 1) {
+      flag[i] = 1;
+    }
+  }
+  for (int i = 0; i < 29; i++) {
+    flag[hiringBowMagics[i].code] = 0;
+  }
+  std::vector<int> idxs;
+  for (int i = 0; i < 400; i++) {
+    if (flag[i] > 0) idxs.push_back(i);
+  }
+  std::random_shuffle(idxs.begin(), idxs.end());
+
+  for (int i = 0; i < 29; i++) {
+    std::cout << hiringBowMagics[i].code << ": " << hiringBowMagics[i].desc << std::endl;
+    MagicAttribute magic;
+    createAttr(magic, hiringBowMagics[i]);
+    item.magicAttrList.push_back(magic);
+  }/*
+  for (int i = 0; i < 30; i++) {
+    int j = idxs[i];
+    std::cout << ustatsMagics[j].code << ": " << ustatsMagics[j].desc << std::endl;
+    MagicAttribute magic;
+    createAttr(magic, ustatsMagics[j]);
+    item.magicAttrList.push_back(magic);
+  }*/
+}
+
 void createComplexItem(std::string fileName) {
 
   BitWriter writer;
@@ -240,9 +169,7 @@ void createComplexItem(std::string fileName) {
   item.typeCodeChar = std::string("6lw ");
   item.nItemsInSockets = 0;
 
-
   // complex properties
-
   item.bigItemType = getBigType(item.typeCodeChar);
   std::cout << "Item big type: " << item.bigItemType << std::endl;
 
@@ -266,11 +193,11 @@ void createComplexItem(std::string fileName) {
   item.quantity = 0;
   item.totalNrOfSockets = 2;
 
-  std::string runes[] = {"r09", "r05"};
+  //std::string runes[] = {"r09", "r05"};
   //insertRunes(item, runes, 2);
 
   // add magics
-  insertMagics(item);
+  insertMagics4(item);
 
   item.writeToFile(writer);
   writer.close();
@@ -279,9 +206,9 @@ void createComplexItem(std::string fileName) {
 }
 
 
-
 int main() {
   initMagics();
-  createComplexItem("testitem83.d2i");
+  readuStats();
+  createComplexItem("testitem11.d2i");
   return 0;
 }

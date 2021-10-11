@@ -1,0 +1,324 @@
+Stat	numID	code	name	numparam	base1	length1	description1	paramtype2	base2	length2	description2	paramtype3	base3	length3	description3	paramtype4	base4	length4	description4	modcode1	modcode2	modcode3	modcode4	lookup	*eol
+strength	0	str	Strength	1	-32	8														max					0
+energy	1	enr	Energy	1	-32	7														max					0
+dexterity	2	dex	Dexterity	1	-32	7														max					0
+vitality	3	vit	Vitality	1	-32	7														max					0
+statpts	4		Stat Points																						0
+newskills	5		Skill Points																						0
+hitpoints	6		Life																						0
+maxhp	7	hp	Max Life	1	-32	9														max					0
+mana	8		Mana																						0
+maxmana	9	mana	Max Mana	1	-32	8														max					0
+stamina	10		stamina																						0
+maxstamina	11	stam	Max Stamina	1	-32	8														max					0
+level	12		Level																						0
+experience	13		experience																						0
+gold	14		gold																						0
+goldbank	15		goldbank																						0
+item_armor_percent	16	ac%	Enhanced Defense %	1	0	9	%													max					0
+item_maxdamage_percent	17	dmg%	Enchanced Damage %	2	0	9	% Min Damage	0	0	9	% Max Damage									min	max				0
+item_mindamage_percent	18	min-dmg%	Enchanced Min Dmg %	1	0	9	%													max					0
+tohit	19	att	Attack Rating	1	0	10														max					0
+toblock	20	block	Chance of Blocking %	1	0	6	%													max					0
+mindamage	21	dmg-min	Min 1-handed Dmg	1	0	6														max					0
+maxdamage	22	dmg-max	Max 1-handed Dmg	1	0	7														max					0
+secondary_mindamage	23	dmg-min	Min 2-handed Dmg	1	0	6														max					0
+secondary_maxdamage	24	dmg-max	Max 2-handed Dmg	1	0	7														max					0
+damagepercent	25		Damage % nv	1	0	8	%													max					0
+manarecovery	26		Regenerate Mana % nv	1	0	8	%													max					0
+manarecoverybonus	27	regen-mana	Regenerate Mana Plus %	1	0	8	%													max					0
+staminarecoverybonus	28	regen-stam	Heal Stemina Plus %	1	0	8	%													max					0
+lastexp	29		lastexp																						0
+nextexp	30		nextexp																						0
+armorclass	31	ac	Defense	1	-10	11														max					0
+armorclass_vs_missile	32	ac-miss	Def vs Missile	1	0	9														max					0
+armorclass_vs_hth	33	ac-hth	Def vs Melee	1	0	8														max					0
+normal_damage_reduction	34	red-dmg	Damage Reduced By	1	0	6														max					0
+magic_damage_reduction	35	red-mag	Magic Dmg Reduced By	1	0	6														max					0
+damageresist	36	red-dmg%	Damage Reduced By %	1	0	8	%													max					0
+magicresist	37	res-mag	Magic Resistance %	1	0	8	%													max					0
+maxmagicresist	38	res-mag-max	Max Magic Resistance %	1	0	5	%													max					0
+fireresist	39	res-fire	Fire Resistance %	1	-50	8	%													max					0
+maxfireresist	40	res-fire-max	Max Fire Resistance %	1	0	5	%													max					0
+lightresist	41	res-ltng	Lightning Resistance %	1	-50	8	%													max					0
+maxlightresist	42	res-ltng-max	Max Lightning Resistance %	1	0	5	%													max					0
+coldresist	43	res-cold	Cold Resistance %	1	-50	8	%													max					0
+maxcoldresist	44	res-cold-max	Max Cold Resistance %	1	0	5	%													max					0
+poisonresist	45	res-pois	Poison Resistance %	1	-50	8	%													max					0
+maxpoisonresist	46	res-pois-max	Max Poison Resistance %	1	0	5	%													max					0
+damageaura	47		damageaura																						0
+firemindam	48	dmg-fire	Fire Damage	2	0	8	Min	0	0	9	Max									min	max				0
+firemaxdam	49		Max Fire Damage	1	0	9														max					0
+lightmindam	50	dmg-ltng	Lightning Damage	2	0	6	Min	0	0	10	Max									min	max				0
+lightmaxdam	51		Max Lightning Dmg	1	0	10														max					0
+magicmindam	52	dmg-mag	Magic Damage	2	0	8	Min	0	0	9	Max									min	max				0
+magicmaxdam	53		Max Magic Damage	1	0	9														max					0
+coldmindam	54	dmg-cold	Cold Damage	3	0	8	Min	0	0	9	Max	1	0	8	(=#/25)sec Cold Length					min	max	param			0
+coldmaxdam	55		Max Cold Damage	1	0	9														max					0
+coldlength	56		Cold Length	1	0	8	(=#/25)sec Cold Length													max					0
+poisonmindam	57	dmg-pois	Poison Damage	3	0	10	*length/10.2 = Min	2	0	10	*length/10.2 = Max	1	0	9	(=#/25)sec Poison Length					min	max	param			0
+poisonmaxdam	58		Max Poison Dmg	1	0	10														max					0
+poisonlength	59		Poison Length	1	0	9	(=#/25)sec Poison Length													param					0
+lifedrainmindam	60	lifesteal	Life Stolen Per Hit Min	1	0	7	%													max					0
+lifedrainmaxdam	61		Life Stolen Per Hit Max																						0
+manadrainmindam	62	manasteal	Mana Stolen Per Hit Min	1	0	7	%													max					0
+manadrainmaxdam	63		Mana Stolen Per Hit Max																						0
+stamdrainmindam	64		Stamina Drain Min																						0
+stamdrainmaxdam	65		Stamina Drain Max																						0
+stunlength	66		Stun Length																						0
+velocitypercent	67		Run/Walk Speed % nv	1	-30	7	%													max					0
+attackrate	68		Attack Speed % nv	1	-30	7	%													max					0
+other_animrate	69		other_animrate																						0
+quantity	70		quantity																						0
+value	71		value	1	-100	8																			0
+durability	72		Durabilty	1	0	9														max					0
+maxdurability	73	dur	Max Durability	1	0	8														max					0
+hpregen	74	regen	Replenish Life	1	-30	6														max					0
+item_maxdurability_percent	75	dur%	Max Durability %	1	-20	7	%													max					0
+item_maxhp_percent	76	hp%	Life %	1	-10	6	%													max					0
+item_maxmana_percent	77	mana%	Mana %	1	-10	6	%													max					0
+item_attackertakesdamage	78	thorns	Attacker Takes Damage Of	1	0	7														max					0
+item_goldbonus	79	gold%	Extra Gold From Monsters %	1	-100	9	%													max					0
+item_magicbonus	80	mag%	Chance Of Getting Magic Items %	1	-100	8	%													max					0
+item_knockback	81	knock	Knock Back	1	0	7	'1' is OK													max					0
+item_timeduration	82		Time Duration	1	-20	9																			0
+item_addclassskills	83		Add Class Skill	2	0	3	Class			3	Level									val1	max				0
+unsentparam1	84		Unsentparam1	0	0	0														max					0
+item_addexperience	85	addxp	Add experience	1	-50	9														max					0
+item_healafterkill	86		Heal after kill	1	0	7														max					0
+item_reducedprices	87		Reduced prices	1	0	7														max					0
+item_doubleherbduration	88		Double Herb Duration	1	0	1																			0
+item_lightradius	89	light	Light Radius	1	-4	4														max					0
+item_lightcolor	90	color	Light Color nv	1	0	24														max					0
+item_req_percent	91	ease	Requirements %	1	-100	8	%													max					0
+item_levelreq	92		Level Require	1	0	7														max					0
+item_fasterattackrate	93	swing3	Increased Attack Speed	1	-20	7	%													max					0
+item_levelreqpct	94		Level Require %	1	-64	7	%													max					0
+lastblockframe	95		Last block frame	0																max					0
+item_fastermovevelocity	96	move3	Faster Run/Walk	1	-20	7	%													max					0
+item_nonclassskill	97		Non Class skill	2		9	Skill Id			6	Level									param	max			1	0
+state	98		state	2		8	Sate Id			1	must be 1									param	max			2	0
+item_fastergethitrate	99	balance2	Faster Hit Recovery Rate	1	-20	7	%													max					0
+monster_playercount	100		Monster player count	0																max					0
+skill_poison_override_length	101		Poison override	0																max					0
+item_fasterblockrate	102	block2	Faster Block Rate	1	-20	7	%													max					0
+skill_bypass_undead	103		Bypass undead	0																max					0
+skill_bypass_demons	104		Bypass demons	0																max					0
+item_fastercastrate	105	cast2	Faster Cast Rate	1	-20	7	%													max					0
+skill_bypass_beasts	106		Bypass beasts	0																max					0
+item_singleskill	107	skill	Single Skill	2	0	9	Skill Id	0	0	3	Level									param	max			1	0
+item_restinpeace	108		Rest in peace	1	0	1														max					0
+curse_resistance	109		Curse resistance	1	0	9														max					0
+item_poisonlengthresist	110	res-pois-len	Poison Length Reduced By %	1	-20	8	%													max					0
+item_normaldamage	111	dmg	Damage	1	-20	9														max					0
+item_howl	112	howl	Hit Causes Monster To Flee %	1	1	7	(=#*100/127)% Chance													max					0
+item_stupidity	113	stupidity	Hit Blinds Target	1	0	7														max					0
+item_damagetomana	114	dmg-to-mana	Damage To Mana %	1	0	6	%													max					0
+item_ignoretargetac	115	ignore-ac	Ignore Target Defense	1	0	1	Must be '1'													max					0
+item_fractionaltargetac	116	reduce-ac	Target Defense %	1	0	7	%													max					0
+item_preventheal	117	noheal	Prevent Monster Heal	1	0	7	'1' is OK													max					0
+item_halffreezeduration	118	half-freez	Half Freeze Duration	1	0	1	Must be '1'													max					0
+item_tohit_percent	119	att%	Bonus To Attack Rating %	1	-20	9	%													max					0
+item_damagetargetac	120	dmg-ac	Reduce Monster Defense per Hit	1	-128	7														max					0
+item_demondamage_percent	121	dmg-demon	Damage To Demons %	1	-20	9	%													max					0
+item_undeaddamage_percent	122	dmg-undead	Damage To Undead %	1	-20	9	%													max					0
+item_demon_tohit	123	att-demon	Attack Rating Against Demons	1	-128	10														max					0
+item_undead_tohit	124	att-undead	Attack Rating Against Undead	1	-128	10														max					0
+item_throwable	125	throw	Throwable	1	0	1	Must be '1'													max					0
+item_elemskill	126		Elemental Skill	2	0	3				3										param	max				0
+item_allskills	127	allskills	All Skill Levels	1	0	3														max					0
+item_attackertakeslightdamage	128	light-thorns	Attacker Takes Lightning Dmg Of	1	0	5														max					0
+ironmaiden_level	129		ironmaiden_level																						0
+lifetap_level	130		lifetap_level																						0
+thorns_percent	131		thorns_percent																						0
+bonearmor	132		bonearmor																						0
+bonearmormax	133		bonearmormax																						0
+item_freeze	134	freeze	Attack Freezes Target	1	0	5														max					0
+item_openwounds	135	openwounds	Chance of Open Wounds	1	0	7	%													max					0
+item_crushingblow	136	crush	Chance of Crushing Blow	1	0	7	%													max					0
+item_kickdamage	137	kick	Kick Damage	1	0	7														max					0
+item_manaafterkill	138	mana-kill	Mana After Each Kill	1	0	7														max					0
+item_healafterdemonkill	139	demon-heal	Life After Each Demon Kill	1	0	7														max					0
+item_extrablood	140	bloody	Extra Blood	1	0	7														max					0
+item_deadlystrike	141	deadly	Chance of Deadly Strike	1	0	7	%													max					0
+item_absorbfire_percent	142	abs-fire%	Fire Absorbs %	1	0	7	%													max					0
+item_absorbfire	143	abs-fire	Fire Absorbs	1	0	7														max					0
+item_absorblight_percent	144	abs-ltng%	Lightning Absorbs %	1	0	7	%													max					0
+item_absorblight	145	abs-ltng	Lightning Absorbs	1	0	7														max					0
+item_absorbmagic_percent	146	abs-mag%	Magic Absorbs %	1	0	7	%													max					0
+item_absorbmagic	147	abs-mag	Magic Absorbs	1	0	7														max					0
+item_absorbcold_percent	148	abs-cold%	Cold Absorbs %	1	0	7	%													max					0
+item_absorbcold	149	abs-cold	Cold Absorbs	1	0	7														max					0
+item_slow	150	slow	Slows Target By %	1	0	7	%													max					0
+item_aura	151	aura	Aura	2	0	9	Aura Id (Spell)			5	Level									param	max			1	0
+item_indesctructible	152	indestruct	Indestructible	1	0	1	Must be one													max					0
+item_cannotbefrozen	153	nofreeze	Cannot be Frozen	1	0	1	Must be '1'													max					0
+item_staminadrainpct	154	stamdrain	Slower Stamina Drain %	1	-20	7	%													max					0
+item_reanimate	155	reanimate	ReAnimate	2	0	10	Monster ID			7	%Change									param	max				0
+item_pierce	156	pierce	Pierce Attack %	1	0	7	%													max					0
+item_magicarrow	157	magicarrow	Fire Magic Arrows or Bolts	1	0	7	'1' is OK													max					0
+item_explosivearrow	158	explosivearrow	Fire Explosive Arrows or Bolts	1	0	7	'1' is OK													max					0
+item_throw_mindamage	159	dmg-throw	Min Throw Dmg nv	1	0	6	Min Dmg													max					0
+item_throw_maxdamage	160	dmg-throw	Max Throw Dmg nv	1	0	7	Max Dmg													max					0
+skill_handofathena	161		UnCoded																						0
+skill_staminapercent	162		UnCoded																						0
+skill_passive_staminapercent	163		UnCoded																						0
+skill_concentration	164		UnCoded																						0
+skill_enchant	165		UnCoded																						0
+skill_pierce	166		UnCoded																						0
+skill_conviction	167		UnCoded																						0
+skill_chillingarmor	168		UnCoded																						0
+skill_frenzy	169		UnCoded																						0
+skill_decrepify	170		UnCoded																						0
+skill_armor_percent	171		UnCoded																						0
+alignment	172		UnCoded																						0
+target0	173		UnCoded																						0
+target1	174		UnCoded																						0
+goldlost	175		UnCoded																						0
+conversion_level	176		UnCoded																						0
+conversion_maxhp	177		UnCoded																						0
+unit_dooverlay	178		UnCoded																						0
+attack_vs_montype	179		Attack Vs Monster	2	0	10	Monster Type			9	%									param	max				0
+damage_vs_montype	180		Damage Vs Monster	2	0	10	Monster Type			9	%									param	max				0
+fade	181	fade	fade	1	0	3	Fade method													max					0
+armor_override_percent	182		Armor override %	0	0																				0
+unused183	183		Unused183	0	0		Monster Kills																		0
+unused184	184		Unused184	0	0	0																			0
+unused185	185		Unused185	0	0	0																			0
+unused186	186		Unused186	0	0	0																			0
+unused187	187		Unused187	0	0	0																			0
+item_addskill_tab	188	skilltab	Add Skill Tab	3	0	3	Skill Tab	0	0	13	Class			3	Level					param	min	max			0
+unused189	189		Unused189	0																					0
+unused190	190		Unused190	0																					0
+unused191	191		Unused191	0																					0
+unused192	192		Unused192	0																					0
+unused193	193		Unused193	0																					0
+item_numsockets	194	sock	Increased Sockets	1	0	4														max					0
+item_skillonattack	195	att-skill	Skill On Attack	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+item_skillonkill	196	kill-skill	Skill On Kill	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+item_skillondeath	197	dth-skill	Skill On Death	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+item_skillonhit	198	hit-skill	Skill On Hit	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+item_skillonlevelup	199	lvl-skill	Skill On Levelup	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+unused200	200		Unused200																						0
+item_skillongethit	201	gethit-skill	Skill On Get Hit	3	0	6	Level	0	0	10	Skill Id			7	Chance					max	param	min		1	0
+unused202	202		Unused202																						0
+unused203	203		Unused203																						0
+item_charged_skill	204	charged	Charged Skill	4	0	6	Level	0	0	10	Skill Id	0	0	8	Remain	0	0	8	Max	max	param	min	min	1	0
+unused204	205		Unused205																						0
+unused205	206		Unused206																						0
+unused206	207		Unused207																						0
+unused207	208		Unused208																						0
+unused208	209		Unused209																						0
+unused209	210		Unused210																						0
+unused210	211		Unused211																						0
+unused211	212		Unused212																						0
+unused212	213		Unused213																						0
+item_armor_perlevel	214	ac/lvl	Defense (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_armorpercent_perlevel	215	ac%/lvl	Enhanced Defense (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_hp_perlevel	216	hp/lvl	Life (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_mana_perlevel	217	mana/lvl	Mana (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_maxdamage_perlevel	218	dmg/lvl	Maximum Damage (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_maxdamage_percent_perlevel	219	dmg%/lvl	Enhanced MaxDmg (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_strength_perlevel	220	str/lvl	Strength (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_dexterity_perlevel	221	dex/lvl	Dexterity (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_energy_perlevel	222	enr/lvl	Energy (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_vitality_perlevel	223	vit/lvl	Vitality (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_tohit_perlevel	224	att/lvl	Att Rating (on Lvl)	1	0	6	(=#*0.5) / lvl													param					0
+item_tohitpercent_perlevel	225	att%/lvl	Bonus to Att Rating % (on Lvl)	1	0	6	(=#*0.5) / lvl													param					0
+item_cold_damagemax_perlevel	226	dmg-cold/lvl	Maximum Cold Dmg (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_fire_damagemax_perlevel	227	dmg-fire/lvl	Maximum Fire Dmg (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_ltng_damagemax_perlevel	228	dmg-ltng/lvl	Maximum Lightning Dmg (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_pois_damagemax_perlevel	229	dmg-pois/lvl	Maximum Poison Dmg (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_resist_cold_perlevel	230	res-cold/lvl	Cold Resistance % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_resist_fire_perlevel	231	res-fire/lvl	Fire Resistance % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_resist_ltng_perlevel	232	res-ltng/lvl	Lightning Resistance % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_resist_pois_perlevel	233	res-pois/lvl	Poison Resistance % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_absorb_cold_perlevel	234	abs-cold/lvl	Absorbs Cold Damage (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_absorb_fire_perlevel	235	abs-fire/lvl	Absorbs Fire Damage (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_absorb_ltng_perlevel	236	abs-ltng/lvl	Absorbs Lightning Damage (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_absorb_pois_perlevel	237	abs-pois/lvl	Absorbs Poison (per lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_thorns_perlevel	238	thorns/lvl	Attacker Takes Damage of (on Lvl)	1	0	5	(=#*0.125) / lvl													param					0
+item_find_gold_perlevel	239	gold%/lvl	Extra Gold From Monsters % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_find_magic_perlevel	240	mag%/lvl	Chance of Getting Magic Items % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_regenstamina_perlevel	241	regen-stam	Heal Stamina Plus % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_stamina_perlevel	242	stam/lvl	Maximum Stamina (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_damage_demon_perlevel	243	dmg-dem/lvl	Damage to Demons % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_damage_undead_perlevel	244	dmg-und/lvl	Damage to Undead % (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_tohit_demon_perlevel	245	att-dem/lvl	Att Rating against Demons (on Lvl)	1	0	6	(=#*0.5) / lvl													param					0
+item_tohit_undead_perlevel	246	att-und/lvl	Att Rating against Undead (on Lvl)	1	0	6	(=#*0.5) / lvl													param					0
+item_crushingblow_perlevel	247	crush/lvl	Chance of Crushing Blow (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_openwounds_perlevel	248	wounds/lvl	Chance of Open Wounds (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_kick_damage_perlevel	249	kick/lvl	Kick Damage (on Lvl)	1	0	6	(=#*0.125) / lvl													param					0
+item_deadlystrike_perlevel	250	deadly/lvl	Chance of Deadly Strike (on Lvl)	1	0	6	(=#*0.125) % / lvl													param					0
+item_find_gems_perlevel	251		Find Gems per level																						0
+item_replenish_durability	252	rep-dur	Repair 1 Durability In Seconds	1	0	6	(=100/#) sec													param					0
+item_replenish_quantity	253	rep-quant	Replenish 1 Quantity In Seconds	1	0	6	(=100/#) sec													param					0
+item_extra_stack	254	stack	Increased Stack Size	1	0	8														max					0
+item_find_item	255		UnCoded																	param	max				0
+item_slash_damage	256		UnCoded																	max					0
+item_slash_damage_percent	257		UnCoded																	max					0
+item_crush_damage	258		UnCoded																	max					0
+item_crush_damage_percent	259		UnCoded																	max					0
+item_thrust_damage	260		UnCoded																	max					0
+item_thrust_damage_percent	261		UnCoded																	max					0
+item_absorb_slash	262		UnCoded																	max					0
+item_absorb_crush	263		UnCoded																	max					0
+item_absorb_thrust	264		UnCoded																	max					0
+item_absorb_slash_percent	265		UnCoded																	max					0
+item_absorb_crush_percent	266		UnCoded																	max					0
+item_absorb_thrust_percent	267		UnCoded																	max					0
+item_find_gems_bytime	304		item_find_gems_bytime																						0
+item_pierce_cold	305		item_pierce_cold	1	-50	8														max					0
+item_pierce_fire	306		item_pierce_fire	1	-50	8														max					0
+item_pierce_ltng	307		item_pierce_ltng	1	-50	8														max					0
+item_pierce_pois	308		item_pierce_pois	1	-50	8														max					0
+item_damage_vs_monster	309		item_damage_vs_monster																	param	max				0
+item_damage_percent_vs_monster	310		item_damage_percent_vs_monster																	param	max				0
+item_tohit_vs_monster	311		item_tohit_vs_monster																	param	max				0
+item_tohit_percent_vs_monster	312		item_tohit_percent_vs_monster																	param	max				0
+item_ac_vs_monster	313		item_ac_vs_monster																	param	max				0
+item_ac_percent_vs_monster	314		item_ac_percent_vs_monster																	param	max				0
+firelength	315		firelength																						0
+burningmin	316		burningmin																						0
+burningmax	317		burningmax																						0
+progressive_damage	318		progressive_damage																						0
+progressive_steal	319		progressive_steal																						0
+progressive_other	320		progressive_other																						0
+progressive_fire	321		progressive_fire																						0
+progressive_cold	322		progressive_cold																						0
+progressive_lightning	323		progressive_lightning																						0
+item_extra_charges	324		item_extra_charges	1		6														max					0
+progressive_tohit	325		progressive_tohit																						0
+poison_count	326		poison_count																						0
+damage_framerate	327		damage_framerate																						0
+pierce_idx	328		pierce_idx																						0
+passive_fire_mastery	329		passive_fire_mastery	1	-50	9														max					0
+passive_ltng_mastery	330		passive_ltng_mastery	1	-50	9														max					0
+passive_cold_mastery	331		passive_cold_mastery	1	-50	9														max					0
+passive_pois_mastery	332		passive_pois_mastery	1	-50	9														max					0
+passive_fire_pierce	333		passive_fire_pierce	1		8														max					0
+passive_ltng_pierce	334		passive_ltng_pierce	1		8														max					0
+passive_cold_pierce	335		passive_cold_pierce	1		8														max					0
+passive_pois_pierce	336		passive_pois_pierce	1		8														max					0
+passive_critical_strike	337		passive_critical_strike	1		8														max					0
+passive_dodge	338		passive_dodge	1		7														max					0
+passive_avoid	339		passive_avoid	1		7														max					0
+passive_evade	340		passive_evade	1		7														max					0
+passive_warmth	341		passive_warmth	1		8														max					0
+passive_mastery_melee_th	342		passive_mastery_melee_th	1		8														max					0
+passive_mastery_melee_dmg	343		passive_mastery_melee_dmg	1		8														max					0
+passive_mastery_melee_crit	344		passive_mastery_melee_crit	1		8														max					0
+passive_mastery_throw_th	345		passive_mastery_throw_th	1		8														max					0
+passive_mastery_throw_dmg	346		passive_mastery_throw_dmg	1		8														max					0
+passive_mastery_throw_crit	347		passive_mastery_throw_crit	1		8														max					0
+passive_weaponblock	348		passive_weaponblock	1		8														max					0
+passive_summon_resist	349		passive_summon_resist	1		8														max					0
+modifierlist_skill	350		modifierlist_skill																						0
+modifierlist_level	351		modifierlist_level																						0
+last_sent_hp_pct	352		last_sent_hp_pct																						0
+source_unit_type	353		source_unit_type																						0
+source_unit_id	354		source_unit_id																						0
+shortparam1	355		shortparam1																						0
+questitemdifficulty	356		questitemdifficulty	1		2																			0
+passive_mag_mastery	357		passive_mag_mastery	1	-50	9														max					0
+passive_mag_pierce	358		passive_mag_pierce	1		8														max					0

@@ -1,0 +1,219 @@
+=====
+cnt[1] = 188
+0: Strength
+1: Energy
+2: Dexterity
+3: Vitality
+7: Max Life
+9: Max Mana
+11: Max Stamina
+16: Enhanced Defense %
+18: Enchanced Min Dmg %
+19: Attack Rating
+20: Chance of Blocking %
+21: Min 1-handed Dmg
+22: Max 1-handed Dmg
+23: Min 2-handed Dmg
+24: Max 2-handed Dmg
+25: Damage % nv
+26: Regenerate Mana % nv
+27: Regenerate Mana Plus %
+28: Heal Stemina Plus %
+31: Defense
+32: Def vs Missile
+33: Def vs Melee
+34: Damage Reduced By
+35: Magic Dmg Reduced By
+36: Damage Reduced By %
+37: Magic Resistance %
+38: Max Magic Resistance %
+39: Fire Resistance %
+40: Max Fire Resistance %
+41: Lightning Resistance %
+42: Max Lightning Resistance %
+43: Cold Resistance %
+44: Max Cold Resistance %
+45: Poison Resistance %
+46: Max Poison Resistance %
+49: Max Fire Damage
+51: Max Lightning Dmg
+53: Max Magic Damage
+55: Max Cold Damage
+56: Cold Length
+58: Max Poison Dmg
+59: Poison Length
+60: Life Stolen Per Hit Min
+62: Mana Stolen Per Hit Min
+67: Run/Walk Speed % nv
+68: Attack Speed % nv
+71: value
+72: Durabilty
+73: Max Durability
+74: Replenish Life
+75: Max Durability %
+76: Life %
+77: Mana %
+78: Attacker Takes Damage Of
+79: Extra Gold From Monsters %
+80: Chance Of Getting Magic Items %
+81: Knock Back
+82: Time Duration
+85: Add experience
+86: Heal after kill
+87: Reduced prices
+88: Double Herb Duration
+89: Light Radius
+90: Light Color nv
+91: Requirements %
+92: Level Require
+93: Increased Attack Speed
+94: Level Require %
+96: Faster Run/Walk
+99: Faster Hit Recovery Rate
+102: Faster Block Rate
+105: Faster Cast Rate
+108: Rest in peace
+109: Curse resistance
+110: Poison Length Reduced By %
+111: Damage
+112: Hit Causes Monster To Flee %
+113: Hit Blinds Target
+114: Damage To Mana %
+115: Ignore Target Defense
+116: Target Defense %
+117: Prevent Monster Heal
+118: Half Freeze Duration
+119: Bonus To Attack Rating %
+120: Reduce Monster Defense per Hit
+121: Damage To Demons %
+122: Damage To Undead %
+123: Attack Rating Against Demons
+124: Attack Rating Against Undead
+125: Throwable
+127: All Skill Levels
+128: Attacker Takes Lightning Dmg Of
+134: Attack Freezes Target
+135: Chance of Open Wounds
+136: Chance of Crushing Blow
+137: Kick Damage
+138: Mana After Each Kill
+139: Life After Each Demon Kill
+140: Extra Blood
+141: Chance of Deadly Strike
+142: Fire Absorbs %
+143: Fire Absorbs
+144: Lightning Absorbs %
+145: Lightning Absorbs
+146: Magic Absorbs %
+147: Magic Absorbs
+148: Cold Absorbs %
+149: Cold Absorbs
+150: Slows Target By %
+152: Indestructible
+153: Cannot be Frozen
+154: Slower Stamina Drain %
+156: Pierce Attack %
+157: Fire Magic Arrows or Bolts
+158: Fire Explosive Arrows or Bolts
+159: Min Throw Dmg nv
+160: Max Throw Dmg nv
+181: fade
+194: Increased Sockets
+214: Defense (on Lvl)
+215: Enhanced Defense (on Lvl)
+216: Life (on Lvl)
+217: Mana (on Lvl)
+218: Maximum Damage (on Lvl)
+219: Enhanced MaxDmg (on Lvl)
+220: Strength (on Lvl)
+221: Dexterity (on Lvl)
+222: Energy (on Lvl)
+223: Vitality (on Lvl)
+224: Att Rating (on Lvl)
+225: Bonus to Att Rating % (on Lvl)
+226: Maximum Cold Dmg (on Lvl)
+227: Maximum Fire Dmg (on Lvl)
+228: Maximum Lightning Dmg (on Lvl)
+229: Maximum Poison Dmg (on Lvl)
+230: Cold Resistance % (on Lvl)
+231: Fire Resistance % (on Lvl)
+232: Lightning Resistance % (on Lvl)
+233: Poison Resistance % (on Lvl)
+234: Absorbs Cold Damage (on Lvl)
+235: Absorbs Fire Damage (on Lvl)
+236: Absorbs Lightning Damage (on Lvl)
+237: Absorbs Poison (per lvl)
+238: Attacker Takes Damage of (on Lvl)
+239: Extra Gold From Monsters % (on Lvl)
+240: Chance of Getting Magic Items % (on Lvl)
+241: Heal Stamina Plus % (on Lvl)
+242: Maximum Stamina (on Lvl)
+243: Damage to Demons % (on Lvl)
+244: Damage to Undead % (on Lvl)
+245: Att Rating against Demons (on Lvl)
+246: Att Rating against Undead (on Lvl)
+247: Chance of Crushing Blow (on Lvl)
+248: Chance of Open Wounds (on Lvl)
+249: Kick Damage (on Lvl)
+250: Chance of Deadly Strike (on Lvl)
+252: Repair 1 Durability In Seconds
+253: Replenish 1 Quantity In Seconds
+254: Increased Stack Size
+305: item_pierce_cold
+306: item_pierce_fire
+307: item_pierce_ltng
+308: item_pierce_pois
+324: item_extra_charges
+329: passive_fire_mastery
+330: passive_ltng_mastery
+331: passive_cold_mastery
+332: passive_pois_mastery
+333: passive_fire_pierce
+334: passive_ltng_pierce
+335: passive_cold_pierce
+336: passive_pois_pierce
+337: passive_critical_strike
+338: passive_dodge
+339: passive_avoid
+340: passive_evade
+341: passive_warmth
+342: passive_mastery_melee_th
+343: passive_mastery_melee_dmg
+344: passive_mastery_melee_crit
+345: passive_mastery_throw_th
+346: passive_mastery_throw_dmg
+347: passive_mastery_throw_crit
+348: passive_weaponblock
+349: passive_summon_resist
+356: questitemdifficulty
+357: passive_mag_mastery
+358: passive_mag_pierce
+=====
+cnt[2] = 13
+17: Enchanced Damage %
+48: Fire Damage
+50: Lightning Damage
+52: Magic Damage
+83: Add Class Skill
+97: Non Class skill
+98: state
+107: Single Skill
+126: Elemental Skill
+151: Aura
+155: ReAnimate
+179: Attack Vs Monster
+180: Damage Vs Monster
+=====
+cnt[3] = 9
+54: Cold Damage
+57: Poison Damage
+188: Add Skill Tab
+195: Skill On Attack
+196: Skill On Kill
+197: Skill On Death
+198: Skill On Hit
+199: Skill On Levelup
+201: Skill On Get Hit
+=====
+cnt[4] = 1
+204: Charged Skill
