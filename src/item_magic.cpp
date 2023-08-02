@@ -4,32 +4,31 @@
 
 #include "items.h"
 
-
-
-void addUnaryMagic(ComplexItem &item, int code, MagicValue &value) {
-  MagicAttribute magic;
-  magic.propCode = code;
-  magic.valueCount = 1;
-  magic.mValues[0] = value;
-  // add to item
-  item.magicAttrList.push_back(magic);
+void addUnaryMagic(ComplexItem &item, int code, MagicValue &value)
+{
+	MagicAttribute magic;
+	magic.propCode = code;
+	magic.valueCount = 1;
+	magic.mValues[0] = value;
+	// add to item
+	item.magicAttrList.push_back(magic);
 }
 
-void addBinaryMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2) {
-
+void addBinaryMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2)
+{
 }
 
-void addTrippleMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3) {
-
+void addTrippleMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3)
+{
 }
 
-void addQuadMagic(ComplexItem &item, 
-                  int code, 
-                  MagicValue &value1, 
-                  MagicValue &value2, 
-                  MagicValue &value3, 
-                  MagicValue &value4) {
-
+void addQuadMagic(ComplexItem &item,
+				  int code,
+				  MagicValue &value1,
+				  MagicValue &value2,
+				  MagicValue &value3,
+				  MagicValue &value4)
+{
 }
 
 MagicProperty indexedMagics[512];
@@ -42,21 +41,20 @@ MagicProperty noNeedMagics[] = {
 	{68, 1, {7, -1, -1, -1}, 30, "Unknown (Invisible)"},
 	{71, 1, {8, -1, -1, -1}, 100, "Unknown (Invisible)"},
 	{72, 1, {9, -1, -1, -1}, 0, "Unknown (Invisible)"},
-  {82, 1, {9, -1, -1, -1}, 20, "Unknown (Invisible)"},
-  {88, 1, {1, -1, -1, -1}, 0, "Unknown (Invisible)"},
+	{82, 1, {9, -1, -1, -1}, 20, "Unknown (Invisible)"},
+	{88, 1, {1, -1, -1, -1}, 0, "Unknown (Invisible)"},
 	{90, 1, {5, -1, -1, -1}, 0, "Ambient light"},
 	{91, 1, {8, -1, -1, -1}, 100, "Requirements {0}%"},
 	{92, 1, {7, -1, -1, -1}, 0, "Level requirements +{0} (Invisible)"},
 	{94, 1, {7, -1, -1, -1}, 64, "Unknown (Invisible)"},
-	{179, 1, {3, -1, -1, -1}, 0, "+{0} to Druid Skill Levels"},  //// Attack vs monster?
+	{179, 1, {3, -1, -1, -1}, 0, "+{0} to Druid Skill Levels"},	   //// Attack vs monster?
 	{180, 1, {3, -1, -1, -1}, 0, "+{0} to Assassin Skill Levels"}, //// Damage vs monster?
 	{194, 1, {4, -1, -1, -1}, 0, "Adds {0} extra sockets to the item"},
 	{324, 1, {6, -1, -1, -1}, 0, "Unknown (Invisible)"},
-  {356, 1, {2, -1, -1, -1}, 0, "Quest Item Difficulty +{0} (Invisible)"}
-};
+	{356, 1, {2, -1, -1, -1}, 0, "Quest Item Difficulty +{0} (Invisible)"}};
 
 MagicProperty existMagics[] = {
-  // unary
+	// unary
 	{0, 1, {8, -1, -1, -1}, 32, "+{0} to Strength"},
 	{1, 1, {7, -1, -1, -1}, 32, "+{0} to Energy"},
 	{2, 1, {7, -1, -1, -1}, 32, "+{0} to Dexterity"},
@@ -207,7 +205,7 @@ MagicProperty existMagics[] = {
 	{335, 1, {8, -1, -1, -1}, 0, "-{0}% To Enemy Cold Resistance"},
 	{336, 1, {8, -1, -1, -1}, 0, "-{0}% To Enemy Poison Resistance"},
 
-  // binary
+	// binary
 	{17, 2, {9, 9, -1, -1}, 0, "+{0}% Enhanced Damage"},
 	{48, 2, {8, 9, -1, -1}, 0, "Adds {0}-{1} Fire Damage"},
 	{50, 2, {6, 10, -1, -1}, 0, "Adds {0}-{1} Lightning Damage"},
@@ -221,8 +219,8 @@ MagicProperty existMagics[] = {
 	{126, 2, {3, 3, -1, -1}, 0, "+{0} to Fire Skills"},
 	{151, 2, {9, 5, -1, -1}, 0, "Level +{1} {0} When Equipped"},
 	{155, 2, {10, 7, -1, -1}, 0, "{0}% Chance to Reanimate Target"},
-  
-  {109, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
+
+	{109, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{181, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{182, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{183, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
@@ -237,7 +235,7 @@ MagicProperty existMagics[] = {
 	{192, 2, {10, 9, -1, -1}, 0, "+{0} to {1} Skills (char_class Only)"},
 	{193, 2, {10, 9, -1, -1}, 0, "+{0} to {1} Skills (char_class Only)"},
 
-  // tenary
+	// tenary
 	{54, 3, {8, 9, 8, -1}, 0, "Adds {0}-{1} Cold Damage over {2} Seconds"},
 	{57, 3, {10, 10, 9, -1}, 0, "Adds {0}-{1} Poison Damage over {2} Seconds"},
 
@@ -262,7 +260,7 @@ MagicProperty existMagics[] = {
 	// When reading the values, remember the bits are read from the right,
 	// so the values will be [2 3 1], offset 2, class id 3, 1 + to skills.
 	{188, 3, {3, 13, 3, -1}, 0, "+{2} to {0} Skills ({1} only)"},
-  // Order is spell id, level, % chance.
+	// Order is spell id, level, % chance.
 	{195, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
 	{196, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
 	{197, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
@@ -273,217 +271,254 @@ MagicProperty existMagics[] = {
 	{202, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When Struck"},
 	{203, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When Struck"},
 
-  // quad
+	// quad
 	{204, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-/*
-	{205, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{206, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{207, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{208, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{209, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{210, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{211, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{212, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	{213, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"}
-*/
+	/*
+		{205, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{206, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{207, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{208, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{209, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{210, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{211, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{212, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
+		{213, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"}
+	*/
 };
 
-void copyProperty(MagicProperty &src, MagicProperty &dest) {
-  dest.bias = src.bias;
-  dest.code = src.code;
-  dest.desc = src.desc;
-  dest.nCnt = src.nCnt;
-  for (int i = 0; i < 4; i++) {
-    dest.bits[i] = src.bits[i];
-  }
+void copyProperty(MagicProperty &src, MagicProperty &dest)
+{
+	dest.bias = src.bias;
+	dest.code = src.code;
+	dest.desc = src.desc;
+	dest.nCnt = src.nCnt;
+	for (int i = 0; i < 4; i++)
+	{
+		dest.bits[i] = src.bits[i];
+	}
 }
 
-std::string propertyToString(MagicProperty &magic) {
-  std::string result = "";
-  std::stringstream ss("");
-  ss << "\t" << "{";
-  ss << magic.code << ", ";
-  ss << magic.nCnt << ", ";
-  ss << "{";
-  for (int i = 0; i < 4; i++) {
-    int v = -1;
-    if (i < magic.nCnt) {
-      v = magic.bits[i];
-    }
-    ss << v;
-    if (i < 3) {
-      ss << ", ";
-    }
-  }
-  ss << "}, ";
-  ss << magic.bias <<  ", ";
-  ss << "\"" << magic.desc << "\"";
-  ss << "},";
-  return ss.str();
+std::string propertyToString(MagicProperty &magic)
+{
+	std::string result = "";
+	std::stringstream ss("");
+	ss << "\t"
+	   << "{";
+	ss << magic.code << ", ";
+	ss << magic.nCnt << ", ";
+	ss << "{";
+	for (int i = 0; i < 4; i++)
+	{
+		int v = -1;
+		if (i < magic.nCnt)
+		{
+			v = magic.bits[i];
+		}
+		ss << v;
+		if (i < 3)
+		{
+			ss << ", ";
+		}
+	}
+	ss << "}, ";
+	ss << magic.bias << ", ";
+	ss << "\"" << magic.desc << "\"";
+	ss << "},";
+	return ss.str();
 }
 
-void initMagics() {
-  for (int i = 0; i < 512; i++) {
-    indexedMagics[i].nCnt = 0;
-  }
-  for (int i = 0; i < 187; i++) {
-    int j = existMagics[i].code;
-    copyProperty(existMagics[i], indexedMagics[j]);
-  }
-  std::cout << indexedMagics[0].nCnt << " " << indexedMagics[0].desc << " " << indexedMagics[0].code << std::endl;
+void initMagics()
+{
+	for (int i = 0; i < 512; i++)
+	{
+		indexedMagics[i].nCnt = 0;
+	}
+	for (int i = 0; i < 187; i++)
+	{
+		int j = existMagics[i].code;
+		copyProperty(existMagics[i], indexedMagics[j]);
+	}
+	std::cout << indexedMagics[0].nCnt << " " << indexedMagics[0].desc << " " << indexedMagics[0].code << std::endl;
 }
 
-struct UStatsParam {
-  std::string desc;
-  std::string length;
-  std::string base;
-  std::string type;
+struct UStatsParam
+{
+	std::string desc;
+	std::string length;
+	std::string base;
+	std::string type;
 };
 
-class UStatsEntry {
+class UStatsEntry
+{
 public:
-  std::vector<std::string> tokens;
+	std::vector<std::string> tokens;
 
-  std::string head;
-  int nParams;
-  int id;
-  std::string name;
-  std::string abbriev;
-  std::vector<UStatsParam> params;
+	std::string head;
+	int nParams;
+	int id;
+	std::string name;
+	std::string abbriev;
+	std::vector<UStatsParam> params;
 
-  void init() {
-    assert(tokens.size() >= 5);
-    head = tokens[0];
-    id = std::atoi(tokens[1].c_str());
-    abbriev = tokens[2];
-    name = tokens[3];
-    nParams = 0;
-    if (tokens[4] != "") {
-      nParams = std::atoi(tokens[4].c_str());
-    }
+	void init()
+	{
+		assert(tokens.size() >= 5);
+		head = tokens[0];
+		id = std::atoi(tokens[1].c_str());
+		abbriev = tokens[2];
+		name = tokens[3];
+		nParams = 0;
+		if (tokens[4] != "")
+		{
+			nParams = std::atoi(tokens[4].c_str());
+		}
 
-    int idx = 5;
-    if (nParams > 0) {
-      for (int i = 0; i < nParams; i++) {
-        if (i == 0) {
-          UStatsParam param;
-          param.base = tokens[idx + 0];
-          param.length = tokens[idx + 1];
-          param.desc = tokens[idx + 2];
-          params.push_back(param);
-          idx += 3;
-        } else {
-          UStatsParam param;
-          param.type = tokens[idx + 0];
-          param.base = tokens[idx + 1];
-          param.length = tokens[idx + 2];
-          param.desc = tokens[idx + 3];
-          params.push_back(param);
-          idx += 4;
-        }
-      }
-    }
-  }
+		int idx = 5;
+		if (nParams > 0)
+		{
+			for (int i = 0; i < nParams; i++)
+			{
+				if (i == 0)
+				{
+					UStatsParam param;
+					param.base = tokens[idx + 0];
+					param.length = tokens[idx + 1];
+					param.desc = tokens[idx + 2];
+					params.push_back(param);
+					idx += 3;
+				}
+				else
+				{
+					UStatsParam param;
+					param.type = tokens[idx + 0];
+					param.base = tokens[idx + 1];
+					param.length = tokens[idx + 2];
+					param.desc = tokens[idx + 3];
+					params.push_back(param);
+					idx += 4;
+				}
+			}
+		}
+	}
 
-  void toMagicProp(MagicProperty &prop) {
-    prop.code = id;
-    prop.nCnt = nParams;
-    prop.desc = name;
-    for (int i = 0; i < nParams; i++) {
-      prop.bits[i] = std::atoi(params[i].length.c_str());
-    }
-  }
+	void toMagicProp(MagicProperty &prop)
+	{
+		prop.code = id;
+		prop.nCnt = nParams;
+		prop.desc = name;
+		for (int i = 0; i < nParams; i++)
+		{
+			prop.bits[i] = std::atoi(params[i].length.c_str());
+		}
+	}
 };
 
-void string_split(std::string s, std::string delimiter, std::vector<std::string> &tokens) {
-  size_t pos = 0;
-  std::string token;
-  while ((pos = s.find(delimiter)) != std::string::npos) {
-    token = s.substr(0, pos);
-    tokens.push_back(token);
-    s.erase(0, pos + delimiter.length());
-  }
+void string_split(std::string s, std::string delimiter, std::vector<std::string> &tokens)
+{
+	size_t pos = 0;
+	std::string token;
+	while ((pos = s.find(delimiter)) != std::string::npos)
+	{
+		token = s.substr(0, pos);
+		tokens.push_back(token);
+		s.erase(0, pos + delimiter.length());
+	}
 }
 
-void readuStats() {
-  std::ifstream inf;
+void readuStats()
+{
+	std::ifstream inf;
 
-  inf.open("./uStats.txt", std::ios::binary);
+	inf.open("./uStats.txt", std::ios::binary);
 
-  //vector<MagicProperty> props;
-  //MagicProperty props[512];
-  for (int i = 0; i < 512; i++) {
-    ustatsMagics[i].nCnt = 0;
-  }
+	// vector<MagicProperty> props;
+	// MagicProperty props[512];
+	for (int i = 0; i < 512; i++)
+	{
+		ustatsMagics[i].nCnt = 0;
+	}
 
-  int cnt = 0;
-  int first = 0;
-  while (!inf.eof()) {
-    std::string line;
-    std::getline(inf, line);
+	int cnt = 0;
+	int first = 0;
+	while (!inf.eof())
+	{
+		std::string line;
+		std::getline(inf, line);
 
-    if (line.length() <= 0) {
-      continue;
-    }
+		if (line.length() <= 0)
+		{
+			continue;
+		}
 
-    first++;
-    if (first <= 1) {
-      continue; // column name row
-    }
+		first++;
+		if (first <= 1)
+		{
+			continue; // column name row
+		}
 
-    UStatsEntry row;
-    string_split(line, "\t", row.tokens);
+		UStatsEntry row;
+		string_split(line, "\t", row.tokens);
 
-    row.init();
-    if (row.nParams > 0) {
-      cnt++;
-      std::cout << row.name << " len: = " << row.nParams << std::endl;
-      // prop
-      MagicProperty p;
-      row.toMagicProp(p);
-      row.toMagicProp(ustatsMagics[p.code]);
-    }
-    
-  }
+		row.init();
+		if (row.nParams > 0)
+		{
+			cnt++;
+			std::cout << row.name << " len: = " << row.nParams << std::endl;
+			// prop
+			MagicProperty p;
+			row.toMagicProp(p);
+			row.toMagicProp(ustatsMagics[p.code]);
+		}
+	}
 
-  std::cout << "cnt = " << cnt << std::endl;
-  std::cout << "done read ustats" << std::endl;
-  inf.close();
+	std::cout << "cnt = " << cnt << std::endl;
+	std::cout << "done read ustats" << std::endl;
+	inf.close();
 
-  ////
-  int paramCnt[5];
-  for (int i = 0; i < 5; i++) {
-    paramCnt[i] = 0;
-  }
-  for (int i = 0; i < 370; i++) {
-    if (indexedMagics[i].nCnt != ustatsMagics[i].nCnt) {
-      std::cout << i << ": [" << indexedMagics[i].desc << "] [" << ustatsMagics[i].desc << "] ";
-      std::cout << indexedMagics[i].nCnt << " " << ustatsMagics[i].nCnt <<  std::endl;
-    }
-    if (ustatsMagics[i].nCnt > 0) {
-      paramCnt[ustatsMagics[i].nCnt]++;
-      std::cout << propertyToString(ustatsMagics[i]) << std::endl;
-    }
-  }
-  for (int i = 1; i < 5; i++) {
-    std::cout << "=====" << std::endl;
-    std::cout << "cnt[" << i <<  "] = " << paramCnt[i] << std::endl;
-    for (int j = 0; j < 370; j++) {
-      if (ustatsMagics[j].nCnt == i) {
-        std::cout << ustatsMagics[j].code << ": " << ustatsMagics[j].desc << std::endl;
-      }
-    }
-  }
-  ////
-  for (int i = 1; i < 5; i++) {
-    for (int j = 0; j < 370; j++) {
-      if (ustatsMagics[j].nCnt == i) {
-        std::cout << propertyToString(ustatsMagics[j]) << std::endl;
-      }
-    }
-  }
+	////
+	int paramCnt[5];
+	for (int i = 0; i < 5; i++)
+	{
+		paramCnt[i] = 0;
+	}
+	for (int i = 0; i < 370; i++)
+	{
+		if (indexedMagics[i].nCnt != ustatsMagics[i].nCnt)
+		{
+			std::cout << i << ": [" << indexedMagics[i].desc << "] [" << ustatsMagics[i].desc << "] ";
+			std::cout << indexedMagics[i].nCnt << " " << ustatsMagics[i].nCnt << std::endl;
+		}
+		if (ustatsMagics[i].nCnt > 0)
+		{
+			paramCnt[ustatsMagics[i].nCnt]++;
+			std::cout << propertyToString(ustatsMagics[i]) << std::endl;
+		}
+	}
+	for (int i = 1; i < 5; i++)
+	{
+		std::cout << "=====" << std::endl;
+		std::cout << "cnt[" << i << "] = " << paramCnt[i] << std::endl;
+		for (int j = 0; j < 370; j++)
+		{
+			if (ustatsMagics[j].nCnt == i)
+			{
+				std::cout << ustatsMagics[j].code << ": " << ustatsMagics[j].desc << std::endl;
+			}
+		}
+	}
+	////
+	for (int i = 1; i < 5; i++)
+	{
+		for (int j = 0; j < 370; j++)
+		{
+			if (ustatsMagics[j].nCnt == i)
+			{
+				std::cout << propertyToString(ustatsMagics[j]) << std::endl;
+			}
+		}
+	}
 }
-
 
 // valid ustats magics
 MagicProperty validUstatsMagics[] = {
@@ -676,7 +711,7 @@ MagicProperty validUstatsMagics[] = {
 	{357, 1, {9, -1, -1, -1}, 0, "passive_mag_mastery"},
 	{358, 1, {8, -1, -1, -1}, 0, "passive_mag_pierce"},
 
-  // 2
+	// 2
 	{17, 2, {9, 9, -1, -1}, 0, "Enchanced Damage %"},
 	{48, 2, {8, 9, -1, -1}, 0, "Fire Damage"},
 	{50, 2, {6, 10, -1, -1}, 0, "Lightning Damage"},
@@ -691,7 +726,7 @@ MagicProperty validUstatsMagics[] = {
 	{179, 2, {10, 9, -1, -1}, 0, "Attack Vs Monster"},
 	{180, 2, {10, 9, -1, -1}, 0, "Damage Vs Monster"},
 
-  // 3
+	// 3
 	{54, 3, {8, 9, 8, -1}, 0, "Cold Damage"},
 	{57, 3, {10, 10, 9, -1}, 0, "Poison Damage"},
 	{188, 3, {3, 13, 3, -1}, 0, "Add Skill Tab"},
@@ -702,11 +737,9 @@ MagicProperty validUstatsMagics[] = {
 	{199, 3, {6, 10, 7, -1}, 0, "Skill On Levelup"},
 	{201, 3, {6, 10, 7, -1}, 0, "Skill On Get Hit"},
 
-  // 4
+	// 4
 	{204, 4, {6, 10, 8, 8}, 0, "Charged Skill"},
 };
-
-
 
 MagicProperty hiringBowMagics[] = {
 	{0, 1, {8, -1, -1, -1}, 0, "Strength"},
@@ -733,13 +766,13 @@ MagicProperty hiringBowMagics[] = {
 	{218, 1, {6, -1, -1, -1}, 0, "Maximum Damage (on Lvl)"},
 	{219, 1, {6, -1, -1, -1}, 0, "Enhanced MaxDmg (on Lvl)"},
 
-  // 2
+	// 2
 	{17, 2, {9, 9, -1, -1}, 0, "Enchanced Damage %"},
 	{48, 2, {8, 9, -1, -1}, 0, "Fire Damage"},
 	{50, 2, {6, 10, -1, -1}, 0, "Lightning Damage"},
 	{52, 2, {8, 9, -1, -1}, 0, "Magic Damage"},
 
-  // 3
+	// 3
 	{54, 3, {8, 9, 8, -1}, 0, "Cold Damage"},
 	{57, 3, {10, 10, 9, -1}, 0, "Poison Damage"},
 
