@@ -46,13 +46,14 @@ void ComplexItem::writeToFile(BitWriter &writer)
 	if (personalized)
 	{
 		// write name string
-		for (int i = 0; i < 32; i++)
+		for (int i = 0; i <= personName.length(); i++)
 		{
-			writer.writeBit((uint64_t)personName[i], 7, true);
-			if (personName[i] == 0x0)
+			if (i == personName.length())
 			{
+				writer.writeBit(0x0, 7, true);
 				break;
 			}
+			writer.writeBit((uint64_t)personName[i], 7, true);
 		}
 	}
 

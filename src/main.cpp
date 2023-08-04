@@ -113,16 +113,33 @@ void insertMagics2(ComplexItem &item)
 
 void insertMagics3(ComplexItem &item)
 {
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		if (ustatsMagics[i].nCnt == 1)
+		MagicProperty* magicPtr;
+		magicPtr = &(existMagics[i]);
+		if (magicPtr->nCnt == 1)
 		{
-			std::cout << ustatsMagics[i].code << ": " << ustatsMagics[i].desc << std::endl;
+			std::cout << "Adding ===>" << magicPtr->code << ": " << magicPtr->desc << std::endl;
 			MagicAttribute magic;
-			createAttr(magic, ustatsMagics[i]);
+			createAttr(magic, *magicPtr);
 			item.magicAttrList.push_back(magic);
 		}
 	}
+
+	for (int i = 86; i < 186; i++)
+	{
+		MagicProperty* magicPtr;
+		magicPtr = &(existMagics[i]);
+		if (magicPtr->nCnt == 1)
+		{
+			std::cout << "Adding ===>" << magicPtr->code << ": " << magicPtr->desc << std::endl;
+			MagicAttribute magic;
+			createAttr(magic, *magicPtr);
+			item.magicAttrList.push_back(magic);
+		}
+	}
+
+	std::cout << "Total inserted magics: " << item.magicAttrList.size() << std::endl;
 }
 
 void insertMagics4(ComplexItem &item)
@@ -164,6 +181,35 @@ void insertMagics4(ComplexItem &item)
 	 }*/
 }
 
+void insertMagics5(ComplexItem &item)
+{
+	std::vector<int> idxs;
+	for (int i = 0; i < 186; i++)
+	{
+		MagicProperty* magicPtr;
+		magicPtr = &(existMagics[i]);
+		if (magicPtr->nCnt == 1)
+		{
+			idxs.push_back(i);
+		}
+	}
+
+	std::cout << "Total candiate magics: " << idxs.size() << std::endl;
+
+	//std::random_shuffle(idxs.begin(), idxs.end());
+	int N = 100; //idxs.size();
+	for (int j = 0; j < N; j++) {
+		MagicProperty* magicPtr;
+		magicPtr = &(existMagics[idxs[j]]);
+		std::cout << "Adding ===>" << magicPtr->code << ": " << magicPtr->desc << std::endl;
+		MagicAttribute magic;
+		createAttr(magic, *magicPtr);
+		item.magicAttrList.push_back(magic);
+	}
+
+	std::cout << "Total inserted magics: " << item.magicAttrList.size() << std::endl;
+}
+
 void createComplexItem(std::string fileName)
 {
 
@@ -186,7 +232,7 @@ void createComplexItem(std::string fileName)
 	item.positionX = 0;
 	item.positionY = 0;
 	item.altPositionID = 5;
-	item.typeCodeChar = std::string("dr1 "); //("6lw ");
+	item.typeCodeChar = std::string("6lw ");
 	item.nItemsInSockets = 0;
 
 	// complex properties
@@ -194,7 +240,7 @@ void createComplexItem(std::string fileName)
 	std::cout << "Item big type: " << item.bigItemType << std::endl;
 
 	item.globalID = rand();
-	item.level = 88;
+	item.level = 4;
 	item.quality = Unique;
 	// item.qualityData = new ItemQualityMagicEnhanced(132, 458);
 	// item.qualityData = new ItemQualityRareCrafted(0x9c, 0x1, 132,458,139,687,247,726);
@@ -205,7 +251,7 @@ void createComplexItem(std::string fileName)
 	item.classSpecificCode = 0;
 
 	item.givenRunewordCode = 195; // MARK: Runeword data
-	item.personName = std::string("大娃肯定戴不上的帽子系列");
+	item.personName = std::string("abcdefg"); //("+ZJJl5lPRXARwuQ-");//("大娃肯定戴不上的帽子系列");
 	item.timestamp = 0;
 
 	item.defRating = 2047;
@@ -217,7 +263,7 @@ void createComplexItem(std::string fileName)
 	// insertRunes(item, runes, 2);
 
 	// add magics
-	insertMagics3(item);
+	insertMagics5(item);
 
 	item.writeToFile(writer);
 	writer.close();
@@ -229,6 +275,6 @@ int main()
 {
 	initMagics();
 	readuStats();
-	createComplexItem("testitem11.d2i");
+	createComplexItem("testitem12.d2i");
 	return 0;
 }

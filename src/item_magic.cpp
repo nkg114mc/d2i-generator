@@ -51,7 +51,10 @@ MagicProperty noNeedMagics[] = {
 	{180, 1, {3, -1, -1, -1}, 0, "+{0} to Assassin Skill Levels"}, //// Damage vs monster?
 	{194, 1, {4, -1, -1, -1}, 0, "Adds {0} extra sockets to the item"},
 	{324, 1, {6, -1, -1, -1}, 0, "Unknown (Invisible)"},
-	{356, 1, {2, -1, -1, -1}, 0, "Quest Item Difficulty +{0} (Invisible)"}};
+	{356, 1, {2, -1, -1, -1}, 0, "Quest Item Difficulty +{0} (Invisible)"},
+	
+	{84, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Skill Levels"},
+};
 
 MagicProperty existMagics[] = {
 	// unary
@@ -211,7 +214,7 @@ MagicProperty existMagics[] = {
 	{50, 2, {6, 10, -1, -1}, 0, "Adds {0}-{1} Lightning Damage"},
 	{52, 2, {8, 9, -1, -1}, 0, "Adds {0}-{1} Magic Damage"},
 	{83, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Skill Levels"},
-	{84, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Skill Levels"},
+
 	{97, 2, {9, 6, -1, -1}, 0, "+{1} To {0}"},
 	{98, 2, {8, 1, -1, -1}, 0, "{1}+ to {0} (Visual effect only)"},
 	{107, 2, {9, 3, -1, -1}, 0, "+{1} To {0}"},

@@ -1,6 +1,7 @@
 #ifndef BITWRITER_H
 #define BITWRITER_H
 
+#include <cstdint>
 #include <cctype>
 #include <string>
 #include <fstream>
