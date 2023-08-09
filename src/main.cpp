@@ -248,6 +248,24 @@ void insertMagics6(ComplexItem &item)
 
 }
 
+void insertMagics7(ComplexItem &item)
+{
+	for (int j = 0; j < 182; j++) {
+		MagicProperty* magicPtr;
+		magicPtr = &(validUstatsMagics[j]);
+		if (magicPtr->nCnt == 1) {
+			if (magicPtr->code >= 210 && magicPtr->code < 350) {
+				std::cout << "Adding ===>" << magicPtr->code << ": " << magicPtr->desc << std::endl;
+				MagicAttribute magic;
+				createAttr(magic, *magicPtr);
+				item.magicAttrList.push_back(magic);
+			}
+		}
+	}
+
+	std::cout << "Total inserted magics: " << item.magicAttrList.size() << std::endl;
+}
+
 void createComplexItem(std::string fileName)
 {
 
@@ -301,7 +319,7 @@ void createComplexItem(std::string fileName)
 	// insertRunes(item, runes, 2);
 
 	// add magics
-	insertMagics6(item);
+	insertMagics7(item);
 
 	item.writeToFile(writer);
 	writer.close();

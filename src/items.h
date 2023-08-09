@@ -284,6 +284,7 @@ extern const uint64_t MagicalSuffixes[];
 extern MagicProperty existMagics[];
 extern MagicProperty indexedMagics[512];
 extern MagicProperty ustatsMagics[512];
+extern MagicProperty validUstatsMagics[];
 extern MagicProperty hiringBowMagics[];
 
 #endif
