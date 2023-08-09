@@ -1,15 +1,25 @@
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <map>
+#include <string>
+#include <utility>
 
 #include "items.h"
+
+
 
 void addUnaryMagic(ComplexItem &item, int code, MagicValue &value)
 {
 	MagicAttribute magic;
 	magic.propCode = code;
 	magic.valueCount = 1;
+	
+	
+	
 	magic.mValues[0] = value;
+
+
 	// add to item
 	item.magicAttrList.push_back(magic);
 }
@@ -213,17 +223,17 @@ MagicProperty existMagics[] = {
 	{48, 2, {8, 9, -1, -1}, 0, "Adds {0}-{1} Fire Damage"},
 	{50, 2, {6, 10, -1, -1}, 0, "Adds {0}-{1} Lightning Damage"},
 	{52, 2, {8, 9, -1, -1}, 0, "Adds {0}-{1} Magic Damage"},
-	{83, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Skill Levels"},
-
-	{97, 2, {9, 6, -1, -1}, 0, "+{1} To {0}"},
+	{83, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Class Character Levels"},
+	{97, 2, {9, 6, -1, -1}, 0, "+{1} To {0} (Non-class-specific) Skill Levels"},
 	{98, 2, {8, 1, -1, -1}, 0, "{1}+ to {0} (Visual effect only)"},
-	{107, 2, {9, 3, -1, -1}, 0, "+{1} To {0}"},
+	{107, 2, {9, 3, -1, -1}, 0, "+{1} To {0 (class-specific) Skill Levels}"},
 
-	{126, 2, {3, 3, -1, -1}, 0, "+{0} to Fire Skills"},
+	{126, 2, {3, 3, -1, -1}, 0, "+{1} to {0} Type of Elemental Skills"},
 	{151, 2, {9, 5, -1, -1}, 0, "Level +{1} {0} When Equipped"},
 	{155, 2, {10, 7, -1, -1}, 0, "{0}% Chance to Reanimate Target"},
 
 	{109, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
+/*
 	{181, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{182, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{183, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
@@ -231,7 +241,7 @@ MagicProperty existMagics[] = {
 	{185, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{186, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
 	{187, 2, {9, 5, -1, -1}, 0, "+{1} to spell {0} (char_class Only)"},
-
+*/
 	{189, 2, {10, 9, -1, -1}, 0, "+{0} to {1} Skills (char_class Only)"},
 	{190, 2, {10, 9, -1, -1}, 0, "+{0} to {1} Skills (char_class Only)"},
 	{191, 2, {10, 9, -1, -1}, 0, "+{0} to {1} Skills (char_class Only)"},
@@ -264,29 +274,15 @@ MagicProperty existMagics[] = {
 	// so the values will be [2 3 1], offset 2, class id 3, 1 + to skills.
 	{188, 3, {3, 13, 3, -1}, 0, "+{2} to {0} Skills ({1} only)"},
 	// Order is spell id, level, % chance.
-	{195, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
-	{196, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
-	{197, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When you die"},
-	{198, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} On Striking"},
-	{199, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} On Striking"},
-	{200, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} On Striking"},
-	{201, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When Struck"},
-	{202, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When Struck"},
-	{203, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} {1} When Struck"},
+	{195, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} When you attack"},
+	{196, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} When you kill"},
+	{197, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} When you die"},
+	{198, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} On Striking"},
+	{199, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} On Level Up"},
+	{201, 3, {6, 10, 7, -1}, 0, "{2}% Chance to Cast Level {0} Skill {1} When Struck"},
 
 	// quad
-	{204, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-	/*
-		{205, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{206, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{207, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{208, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{209, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{210, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{211, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{212, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"},
-		{213, 4, {6, 10, 8, 8}, 0, "Level {0} {1} ({2}/{3} Charges)"}
-	*/
+	{204, 4, {6, 10, 8, 8}, 0, "Level {0} Skill {1} ({2}/{3} Charges)"}
 };
 
 void copyProperty(MagicProperty &src, MagicProperty &dest)
@@ -325,7 +321,13 @@ std::string propertyToString(MagicProperty &magic)
 	}
 	ss << "}, ";
 	ss << magic.bias << ", ";
-	ss << "\"" << magic.desc << "\"";
+	if (magic.desc.length() > 0 && magic.desc[0] != '\"') {
+		ss << "\"";
+	}
+	ss << magic.desc;
+	if (magic.desc.length() > 0 && magic.desc[magic.desc.length() - 1] != '\"') {
+		ss << "\"";
+	}
 	ss << "},";
 	return ss.str();
 }
@@ -589,10 +591,10 @@ MagicProperty validUstatsMagics[] = {
 	{88, 1, {1, -1, -1, -1}, 0, "Double Herb Duration"},
 	{89, 1, {4, -1, -1, -1}, 0, "Light Radius"},
 	{90, 1, {24, -1, -1, -1}, 0, "Light Color nv"},
-	//{91, 1, {8, -1, -1, -1}, 0, "Requirements %"},
-	//{92, 1, {7, -1, -1, -1}, 0, "Level Require"},
+	{91, 1, {8, -1, -1, -1}, 0, "Requirements %"},
+	{92, 1, {7, -1, -1, -1}, 0, "Level Require"},
 	{93, 1, {7, -1, -1, -1}, 0, "Increased Attack Speed"},
-	//{94, 1, {7, -1, -1, -1}, 0, "Level Require %"},
+	{94, 1, {7, -1, -1, -1}, 0, "Level Require %"},
 	{96, 1, {7, -1, -1, -1}, 0, "Faster Run/Walk"},
 	{99, 1, {7, -1, -1, -1}, 0, "Faster Hit Recovery Rate"},
 	{102, 1, {7, -1, -1, -1}, 0, "Faster Block Rate"},
@@ -726,8 +728,9 @@ MagicProperty validUstatsMagics[] = {
 	{126, 2, {3, 3, -1, -1}, 0, "Elemental Skill"},
 	{151, 2, {9, 5, -1, -1}, 0, "Aura"},
 	{155, 2, {10, 7, -1, -1}, 0, "ReAnimate"},
-	{179, 2, {10, 9, -1, -1}, 0, "Attack Vs Monster"},
-	{180, 2, {10, 9, -1, -1}, 0, "Damage Vs Monster"},
+
+	//{179, 2, {10, 9, -1, -1}, 0, "Attack Vs Monster"},
+	//{180, 2, {10, 9, -1, -1}, 0, "Damage Vs Monster"},
 
 	// 3
 	{54, 3, {8, 9, 8, -1}, 0, "Cold Damage"},
@@ -779,4 +782,387 @@ MagicProperty hiringBowMagics[] = {
 	{54, 3, {8, 9, 8, -1}, 0, "Cold Damage"},
 	{57, 3, {10, 10, 9, -1}, 0, "Poison Damage"},
 
+};
+
+struct AtmaParamType
+{
+	int bits;
+	std::string type;
+	std::string unit;
+	std::string description;
+};
+
+class AtmaEntry
+{
+public:
+	int id;
+	int nParams;
+	int bias;
+	std::string name;
+	std::string abbriev;
+	std::string formatStr1;
+	std::string formatStr2;	
+	AtmaParamType params[4];
+
+	void parseTokens(std::map<std::string, std::string> &csv) {
+		id = -1;
+		nParams = 0;
+		abbriev = "";
+		formatStr1 = "";
+		formatStr2 = "";
+
+		// parseing
+		id = std::stoi(getOrDefault(csv, "Id", "-1"));
+
+		if (id == -1) {
+			// invalid
+			return;
+		}
+
+		name = csv["Description"];
+		nParams = std::stoi(getOrDefault(csv, "numFields", "0"));
+		abbriev = csv["Code"];
+		bias = std::stoi(getOrDefault(csv, "bias", "0"));
+		std::cout << "bias = " << bias << std::endl;
+		formatStr1 = csv["fmtString1"];
+		formatStr2 = csv["fmtString2"];
+
+		params[0].bits = std::stoi(getOrDefault(csv, "bits1", "0"));
+		params[0].type = csv["type1"];
+		params[0].unit = csv["units1"];
+		params[0].description = csv["desc1"];
+
+		params[1].bits =std::stoi(getOrDefault(csv, "bits2", "0"));
+		params[1].type = csv["type2"];
+		params[1].unit = csv["units2"];
+		params[1].description = csv["desc2"];
+
+		params[2].bits =std::stoi(getOrDefault(csv, "bits3", "0"));
+		params[2].type = csv["type3"];
+		params[2].unit = csv["units3"];
+		params[2].description = csv["desc3"];
+
+		params[3].bits = std::stoi(getOrDefault(csv, "bits4", "0"));
+		params[3].type = csv["type4"];
+		params[3].unit = csv["units4"];
+		params[3].description = csv["desc4"];
+	}
+
+	std::string getOrDefault(std::map<std::string, std::string> &csv, 
+	std::string key, std::string defValue) {
+		if (csv.count(key) > 0) {
+			return csv[key];
+		} else {
+			return defValue;
+		}
+
+	}
+
+	void toMagicProp(MagicProperty &prop)
+	{
+		prop.code = id;
+		prop.nCnt = nParams;
+		prop.desc = formatStr1; //name;
+		prop.bias = bias;
+		for (int i = 0; i < nParams; i++)
+		{
+			prop.bits[i] = params[i].bits;
+		}
+	}
+};
+
+void readAtmaProperties()
+{
+	std::ifstream inf;
+	inf.open("./ATMA_properties.txt", std::ios::binary | std::ios::in);
+
+	std::vector<AtmaEntry> entries;
+	int cnt = 0;
+	int first = 0;
+	std::vector<std::string> header;
+	while (!inf.eof())
+	{
+		std::string line;
+		std::getline(inf, line);
+
+		if (line.length() <= 0) {
+			continue;
+		}
+
+		first++;
+		if (first <= 1) {
+			string_split(line, "\t", header);
+			std::cout << "Header length = " << header.size() << std::endl;
+			continue; // column name row
+		}
+
+		std::vector<std::string> tokens;
+		string_split(line, "\t", tokens);
+
+		std::map<std::string, std::string> csvMapping;
+		for (int i = 0; i < tokens.size(); i++) {
+			if (tokens[i] != "") {
+				csvMapping.insert(std::make_pair(header[i], tokens[i]));
+				//std::cout << header[i] << ":" << tokens[i] << std::endl;
+			}
+		}
+
+		std::string propCode = csvMapping["Id"];
+		if (tokens.size() == 0 || propCode == "") {
+			continue;
+		}
+		
+		AtmaEntry entry;
+		entry.parseTokens(csvMapping);
+		if (entry.nParams > 0) {
+			cnt++;
+			entries.push_back(entry);
+			std::cout << entry.id << " " << entry.name << " " << entry.formatStr2 << std::endl;
+		}
+	}
+
+	std::cout << "cnt = " << cnt << std::endl;
+	std::cout << "done read ATMA_properties" << std::endl;
+	inf.close();
+
+	for (int i = 1; i < 5; i++)
+	{
+		std::cout << "// " << i << " =====" << std::endl;
+		for (int j = 0; j < entries.size(); j++)
+		{
+			if (entries[j].nParams == i)
+			{
+				MagicProperty magicProp;
+				entries[j].toMagicProp(magicProp);
+				std::cout << propertyToString(magicProp) << std::endl;
+			}
+		}
+	}
+}
+
+MagicProperty atmaMagics[] = {
+// 1 =====
+	{0, 1, {8, -1, -1, -1}, 32, "%+d to Strength"},
+	{1, 1, {7, -1, -1, -1}, 32, "%+d to Energy"},
+	{2, 1, {7, -1, -1, -1}, 32, "%+d to Dexterity"},
+	{3, 1, {7, -1, -1, -1}, 32, "%+d to Vitality"},
+	{7, 1, {9, -1, -1, -1}, 32, "%+d to Life"},
+	{9, 1, {8, -1, -1, -1}, 32, "%+d to Mana"},
+	{11, 1, {8, -1, -1, -1}, 32, "%+d to Maximum Stamina"},
+	{16, 1, {9, -1, -1, -1}, 0, "%+d%% Enhanced Defense"},
+	{18, 1, {9, -1, -1, -1}, 0, "%+d%% Enhanced Minimum Damage"},
+	{19, 1, {10, -1, -1, -1}, 0, "%+d to Attack Rating"},
+	{20, 1, {6, -1, -1, -1}, 0, "%+d%% Increased Chance of Blocking"},
+	{21, 1, {6, -1, -1, -1}, 0, "%+d to Minimum Damage"},
+	{22, 1, {7, -1, -1, -1}, 0, "%+d to Maximum Damage"},
+	{23, 1, {6, -1, -1, -1}, 0, "%+d to Minimum Damage"},
+	{24, 1, {7, -1, -1, -1}, 0, "%+d to Maximum Damage"},
+	{27, 1, {8, -1, -1, -1}, 0, "Regenerate Mana %d%%"},
+	{28, 1, {8, -1, -1, -1}, 0, "Heal Stamina Plus %d%%"},
+	{31, 1, {11, -1, -1, -1}, 10, "%+d Defense"},
+	{32, 1, {9, -1, -1, -1}, 0, "%+d Defense vs. Missile"},
+	{33, 1, {8, -1, -1, -1}, 0, "%+d Defense vs. Melee"},
+	{34, 1, {6, -1, -1, -1}, 0, "Damage Reduced by %d"},
+	{35, 1, {6, -1, -1, -1}, 0, "Magic Damage Reduced by %d"},
+	{36, 1, {8, -1, -1, -1}, 0, "Damage Reduced by %d%%"},
+	{37, 1, {8, -1, -1, -1}, 0, "Magic Resist %+d%%"},
+	{38, 1, {5, -1, -1, -1}, 0, "%+d%% to Maximum Magic Resist"},
+	{39, 1, {8, -1, -1, -1}, 50, "Fire Resist %+d%%"},
+	{40, 1, {5, -1, -1, -1}, 0, "%+d%% to Maximum Fire Resist"},
+	{41, 1, {8, -1, -1, -1}, 50, "Lightning Resist %+d%%"},
+	{42, 1, {5, -1, -1, -1}, 0, "%+d%% to Maximum Lightning Resist"},
+	{43, 1, {8, -1, -1, -1}, 50, "Cold Resist %+d%%"},
+	{44, 1, {5, -1, -1, -1}, 0, "%+d%% to Maximum Cold Resist"},
+	{45, 1, {8, -1, -1, -1}, 50, "Poison Resist %+d%%"},
+	{46, 1, {5, -1, -1, -1}, 0, "%+d%% to Maximum Poison Resist"},
+	{49, 1, {9, -1, -1, -1}, 0, "%+d to Maximum Fire Damage"},
+	{53, 1, {9, -1, -1, -1}, 0, "%d maximum magic damage"},
+	{56, 1, {8, -1, -1, -1}, 0, "%d seconds cold duration"},
+	{58, 1, {10, -1, -1, -1}, 0, "%d maximum poison damage per second"},
+	{59, 1, {9, -1, -1, -1}, 0, "%d seconds poison duration"},
+	{60, 1, {7, -1, -1, -1}, 0, "%d%% Life stolen per hit"},
+	{62, 1, {7, -1, -1, -1}, 0, "%d%% Mana stolen per hit"},
+	{67, 1, {7, -1, -1, -1}, 30, "%d%% Faster Run/Walk"},
+	{68, 1, {7, -1, -1, -1}, 30, "%d%% Increased Attack Speed"},
+	{73, 1, {8, -1, -1, -1}, 0, "%+d Maximum Durability"},
+	{74, 1, {6, -1, -1, -1}, 30, "Replenish Life %+d"},
+	{75, 1, {7, -1, -1, -1}, 20, "Increase Maximum Durability %d%%"},
+	{76, 1, {6, -1, -1, -1}, 10, "Increase Maximum Life %d%%"},
+	{77, 1, {6, -1, -1, -1}, 10, "Increase Maximum Mana %d%%"},
+	{78, 1, {7, -1, -1, -1}, 0, "Attacker Takes Damage of %d"},
+	{79, 1, {9, -1, -1, -1}, 100, "%d%% Extra Gold from Monsters"},
+	{80, 1, {8, -1, -1, -1}, 100, "%d%% Better Chance of Getting Magic Items"},
+	{81, 1, {7, -1, -1, -1}, 0, "Knockback"},
+	{82, 1, {9, -1, -1, -1}, 20, "%d seconds duration"},
+	{85, 1, {9, -1, -1, -1}, 50, "%+d%% to Experience Gained"},
+	{86, 1, {7, -1, -1, -1}, 0, "%+d Life after each Kill"},
+	{87, 1, {7, -1, -1, -1}, 0, "Reduces All Vendor Prices %d%%"},
+	{89, 1, {4, -1, -1, -1}, 4, "%+d to Light Radius"},
+	{91, 1, {8, -1, -1, -1}, 100, "Requirements %+d%%"},
+	{92, 1, {7, -1, -1, -1}, 0, "Required Level %+d"},
+	{93, 1, {7, -1, -1, -1}, 20, "%d%% Increased Attack Speed"},
+	{94, 1, {7, -1, -1, -1}, 64, "Required Level %d%%"},
+	{96, 1, {7, -1, -1, -1}, 20, "%d%% Faster Run/Walk"},
+	//{98, 1, {8, -1, -1, -1}, 100, "State"},
+	{99, 1, {7, -1, -1, -1}, 20, "%d%% Faster Hit Recovery"},
+	{102, 1, {7, -1, -1, -1}, 20, "%d%% Faster Block Rate"},
+	{105, 1, {7, -1, -1, -1}, 20, "%d%% Faster Cast Rate"},
+	{108, 1, {1, -1, -1, -1}, 0, "Slain Monsters Rest In Peace"},
+	{110, 1, {8, -1, -1, -1}, 20, "Poison Length Reduced by %d%%"},
+	{111, 1, {9, -1, -1, -1}, 20, "Adds %+d Damage"},
+	{112, 1, {7, -1, -1, -1}, -1, "Hit Causes Monster to Flee %d%%"},
+	{113, 1, {7, -1, -1, -1}, 0, "Hit Blinds Target %+d"},
+	{114, 1, {6, -1, -1, -1}, 0, "%d%% Damage Taken Goes to Mana"},
+	{115, 1, {1, -1, -1, -1}, 0, "Ignore Target Defense"},
+	{116, 1, {7, -1, -1, -1}, 0, "-%d%% Target Defense"},
+	{117, 1, {7, -1, -1, -1}, 0, "Prevent Monster Heal"},
+	{118, 1, {1, -1, -1, -1}, 0, "Half Freeze Duration"},
+	{119, 1, {9, -1, -1, -1}, 20, "%d%% Bonus to Attack Rating"},
+	{120, 1, {7, -1, -1, -1}, 128, "%+d to Monster Defense Per Hit"},
+	{121, 1, {9, -1, -1, -1}, 20, "%d%% Damage to Demons"},
+	{122, 1, {9, -1, -1, -1}, 20, "%d%% Damage to Undead"},
+	{123, 1, {10, -1, -1, -1}, 128, "%+d to Attack Rating against Demons"},
+	{124, 1, {10, -1, -1, -1}, 128, "%+d to Attack Rating against Undead"},
+	{125, 1, {1, -1, -1, -1}, 0, "Throwable"},
+	{127, 1, {3, -1, -1, -1}, 0, "%+d to All Skill Levels"},
+	{128, 1, {5, -1, -1, -1}, 0, "Attacker Takes Lightning Damage of %d"},
+	{134, 1, {5, -1, -1, -1}, 0, "Freezes Target %+d"},
+	{135, 1, {7, -1, -1, -1}, 0, "%d%% Chance of Open Wounds"},
+	{136, 1, {7, -1, -1, -1}, 0, "%d%% Chance of Crushing Blow"},
+	{137, 1, {7, -1, -1, -1}, 0, "%+d Kick Damage"},
+	{138, 1, {7, -1, -1, -1}, 0, "%+d to Mana After Each Kill"},
+	{139, 1, {7, -1, -1, -1}, 0, "%+d Life after each Demon Kill"},
+	{140, 1, {7, -1, -1, -1}, 0, "%d%% Extra Bloody"},
+	{141, 1, {7, -1, -1, -1}, 0, "%d%% Deadly Strike"},
+	{142, 1, {7, -1, -1, -1}, 0, "%d%% Fire Absorb"},
+	{143, 1, {7, -1, -1, -1}, 0, "%+d Fire Absorb"},
+	{144, 1, {7, -1, -1, -1}, 0, "%d%% Lightning Absorb"},
+	{145, 1, {7, -1, -1, -1}, 0, "%+d Lightning Absorb"},
+	{146, 1, {7, -1, -1, -1}, 0, "%d%% Magic Absorb"},
+	{147, 1, {7, -1, -1, -1}, 0, "%+d Magic Absorb"},
+	{148, 1, {7, -1, -1, -1}, 0, "%d%% Cold Absorb"},
+	{149, 1, {7, -1, -1, -1}, 0, "%+d Cold Absorb"},
+	{150, 1, {7, -1, -1, -1}, 0, "Slows Target by %d%%"},
+	{152, 1, {1, -1, -1, -1}, 0, "Indestructible"},
+	{153, 1, {1, -1, -1, -1}, 0, "Cannot Be Frozen"},
+	{154, 1, {7, -1, -1, -1}, 20, "%d%% Slower Stamina Drain"},
+	{156, 1, {7, -1, -1, -1}, 0, "Piercing Attack [%d]"},
+	{157, 1, {7, -1, -1, -1}, 0, "Fires Magic Arrows"},
+	{158, 1, {7, -1, -1, -1}, 0, "Fires Explosive Arrows"},
+	{159, 1, {6, -1, -1, -1}, 0, "%+d to Minimum Damage"},
+	{160, 1, {7, -1, -1, -1}, 0, "%+d to Maximum Damage"},
+	{194, 1, {4, -1, -1, -1}, 0, "Increased Sockets by %d"},
+	{214, 1, {6, -1, -1, -1}, 0, "%+d to Defense (Based on Character Level)"},
+	{215, 1, {6, -1, -1, -1}, 0, "%+d%% to Defense (Based on Character Level)"},
+	{216, 1, {6, -1, -1, -1}, 0, "%+d to Life (Based on Character Level)"},
+	{217, 1, {6, -1, -1, -1}, 0, "%+d to Mana (Based on Character Level)"},
+	{218, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Damage (Based on Character Level)"},
+	{219, 1, {6, -1, -1, -1}, 0, "%+d%% to Maximum Damage (Based on Character Level)"},
+	{220, 1, {6, -1, -1, -1}, 0, "%+d to Strength (Based on Character Level)"},
+	{221, 1, {6, -1, -1, -1}, 0, "%+d to Dexterity (Based on Character Level)"},
+	{222, 1, {6, -1, -1, -1}, 0, "%+d to Energy (Based on Character Level)"},
+	{223, 1, {6, -1, -1, -1}, 0, "%+d to Vitality (Based on Character Level)"},
+	{224, 1, {6, -1, -1, -1}, 0, "%+d to Attack Rating (Based on Character Level)"},
+	{225, 1, {6, -1, -1, -1}, 0, "%d%% Bonus to Attack Rating (Based on Character Level)"},
+	{226, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Cold Damage (Based on Character Level)"},
+	{227, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Fire Damage (Based on Character Level)"},
+	{228, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Lightning Damage (Based on Character Level)"},
+	{229, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Poison Damage (Based on Character Level)"},
+	{230, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Cold Resist (Based on Character Level)"},
+	{231, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Fire Resist (Based on Character Level)"},
+	{232, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Resist Damage (Based on Character Level)"},
+	{233, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Poison Resist (Based on Character Level)"},
+	{234, 1, {6, -1, -1, -1}, 0, "%+d to Cold Absorb (Based on Character Level)"},
+	{235, 1, {6, -1, -1, -1}, 0, "%+d to Fire Absorb (Based on Character Level)"},
+	{236, 1, {6, -1, -1, -1}, 0, "%+d to Lightning Absorb (Based on Character Level)"},
+	{237, 1, {6, -1, -1, -1}, 0, "%+d to Poison Absorb (Based on Character Level)"},
+	{238, 1, {5, -1, -1, -1}, 0, "Attacker Takes Damage of %d (Based on Character Level)"},
+	{239, 1, {6, -1, -1, -1}, 0, "%d%% Extra Gold (Based on Character Level)"},
+	{240, 1, {6, -1, -1, -1}, 0, "%d%% Better Chance of Getting Magic Items (Based on Character Level)"},
+	{241, 1, {6, -1, -1, -1}, 0, "Heal Stamina Plus %d%% (Based on Character Level)"},
+	{242, 1, {6, -1, -1, -1}, 0, "%+d to Maximum Stamina (Based on Character Level)"},
+	{243, 1, {6, -1, -1, -1}, 0, "%d%% Damage to Demons (Based on Character Level)"},
+	{244, 1, {6, -1, -1, -1}, 0, "%d%% Damage to Undead (Based on Character Level)"},
+	{245, 1, {6, -1, -1, -1}, 0, "%d%% Bonus to Attack Rating Against Demons (Based on Character Level)"},
+	{246, 1, {6, -1, -1, -1}, 0, "%d%% Bonus to Attack Rating Against Undead (Based on Character Level)"},
+	{247, 1, {6, -1, -1, -1}, 0, "%d%% Crushing Blow (Based on Character Level)"},
+	{248, 1, {6, -1, -1, -1}, 0, "%d%% Open Wounds (Based on Character Level)"},
+	{249, 1, {6, -1, -1, -1}, 0, "%d Kick Damage (Based on Character Level)"},
+	{250, 1, {6, -1, -1, -1}, 0, "%d%% Deadly Strike (Based on Character Level)"},
+	{252, 1, {6, -1, -1, -1}, 0, "Repairs 1 durability in %d seconds"},
+	{253, 1, {6, -1, -1, -1}, 0, "Replenishes Quantity"},
+	{254, 1, {8, -1, -1, -1}, 0, "Increased Stack Size"},
+	{305, 1, {8, -1, -1, -1}, 50, "%+d%% to Enemy Cold Resistance"},
+	{306, 1, {8, -1, -1, -1}, 50, "%+d%% to Enemy Fire Resistance"},
+	{307, 1, {8, -1, -1, -1}, 50, "%+d%% to Enemy Lightning Resistance"},
+	{308, 1, {8, -1, -1, -1}, 50, "%+d%% to Enemy Poison Resistance"},
+	{329, 1, {9, -1, -1, -1}, 50, "%+d%% to Fire Skill Damage"},
+	{330, 1, {9, -1, -1, -1}, 50, "%+d%% to Lightning Skill Damage"},
+	{331, 1, {9, -1, -1, -1}, 50, "%+d%% to Cold Skill Damage"},
+	{332, 1, {9, -1, -1, -1}, 50, "%+d%% to Poison Skill Damage"},
+	{333, 1, {8, -1, -1, -1}, 0, "-%d%% to Enemy Fire Resistance"},
+	{334, 1, {8, -1, -1, -1}, 0, "-%d%% to Enemy Lightning Resistance"},
+	{335, 1, {8, -1, -1, -1}, 0, "-%d%% to Enemy Cold Resistance"},
+	{336, 1, {8, -1, -1, -1}, 0, "-%d%% to Enemy Poison Resistance"},
+	{356, 1, {2, -1, -1, -1}, 0, "Quest Item Difficulty: %d"},
+// 2 =====
+	{17, 2, {9, 9, -1, -1}, 0, "%+d%% Enhanced Damage"},
+	{48, 2, {8, 9, -1, -1}, 0, "%+d fire damage"},
+	{50, 2, {6, 10, -1, -1}, 0, "%+d lightning damage"},
+	{52, 2, {8, 9, -1, -1}, 0, "%+d magic damage"},
+	{83, 2, {3, 3, -1, -1}, 0, "%+d to %s Skill Levels"},
+	{97, 2, {9, 6, -1, -1}, 100, "%+d to %s"},
+	{107, 2, {9, 3, -1, -1}, 0, "%+d to %s (%s Only)"},
+	{126, 2, {3, 3, -1, -1}, 0, "%+d to %s Skills"},
+	{151, 2, {9, 5, -1, -1}, 0, "Level %d %s Aura When Equipped"},
+	{155, 2, {10, 7, -1, -1}, 0, "%d%% Reanimate As: %s"},
+	{188, 2, {16, 3, -1, -1}, 0, "%+d%s (%s Only)"},
+// 3 =====
+	{54, 3, {8, 9, 8, -1}, 0, "%+d cold damage over %d seconds"},
+	{57, 3, {10, 10, 9, -1}, 0, "%+d poison damage over %d seconds"},
+	{195, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s on attack"},
+	{196, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s When You Kill an Enemy"},
+	{197, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s When You Die"},
+	{198, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s on striking"},
+	{199, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s When You Level Up"},
+	{201, 3, {6, 10, 7, -1}, 0, "%d%% Chance to cast Level %d %s when struck"},
+	{268, 3, {2, 10, 10, -1}, 0, "%+d to Defense (%s)"},
+	{269, 3, {2, 10, 10, -1}, 0, "%+d to Max Damage %d %s"},
+	{270, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{271, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{272, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{273, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{274, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{275, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{276, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{277, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{278, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{279, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{280, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{281, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{282, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{283, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{284, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{285, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{286, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{287, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{288, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{289, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{290, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{291, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{292, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{293, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{294, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{295, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{296, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{297, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{298, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{299, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{300, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{301, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{302, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	{303, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+	//{304, 3, {2, 10, 10, -1}, 0, "%+d to xxx (%s)"},
+// 4 =====
+	{204, 4, {6, 10, 8, 8}, 0, "Level %d %s (%d/%d Charges)"}
 };

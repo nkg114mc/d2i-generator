@@ -253,6 +253,7 @@ void addTrippleMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue
 void addQuadMagic(ComplexItem &item, int code, MagicValue &value1, MagicValue &value2, MagicValue &value3, MagicValue &value4);
 void initMagics();
 void readuStats();
+void readAtmaProperties();
 
 // consts
 extern const int AmorCodeLength;

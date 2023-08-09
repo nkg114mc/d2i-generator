@@ -210,6 +210,44 @@ void insertMagics5(ComplexItem &item)
 	std::cout << "Total inserted magics: " << item.magicAttrList.size() << std::endl;
 }
 
+
+void insertMagics6(ComplexItem &item)
+{
+	MagicAttribute magic;
+	magic.propCode = 204;
+	magic.valueCount = 4;
+	magic.mValues[0] = MagicValue(6, 63);
+	magic.mValues[1] = MagicValue(10, 15);
+	magic.mValues[2] = MagicValue(8, 255);
+	magic.mValues[3] = MagicValue(8, 255);
+
+	item.magicAttrList.push_back(magic);
+
+	magic.propCode = 195;
+	magic.valueCount = 3;
+	magic.mValues[0] = MagicValue(6, 63);
+	magic.mValues[1] = MagicValue(10, 15);
+	magic.mValues[2] = MagicValue(7, 127);
+
+	item.magicAttrList.push_back(magic);
+
+	magic.propCode = 188;
+	magic.valueCount = 3;
+	magic.mValues[0] = MagicValue(3, 1);
+	magic.mValues[1] = MagicValue(13, 6);
+	magic.mValues[2] = MagicValue(3, 7);
+
+	item.magicAttrList.push_back(magic);
+
+	magic.propCode = 189;
+	magic.valueCount = 2;
+	magic.mValues[0] = MagicValue(10, 1023);
+	magic.mValues[1] = MagicValue(9, 15);
+
+	item.magicAttrList.push_back(magic);
+
+}
+
 void createComplexItem(std::string fileName)
 {
 
@@ -240,11 +278,11 @@ void createComplexItem(std::string fileName)
 	std::cout << "Item big type: " << item.bigItemType << std::endl;
 
 	item.globalID = rand();
-	item.level = 4;
-	item.quality = Unique;
-	// item.qualityData = new ItemQualityMagicEnhanced(132, 458);
+	item.level = 1;
+	item.quality = MagicallyEnhanced; //Unique;
+	item.qualityData = new ItemQualityMagicEnhanced(132, 458);
 	// item.qualityData = new ItemQualityRareCrafted(0x9c, 0x1, 132,458,139,687,247,726);
-	item.qualityData = new ItemQualityUnique(159);
+	// item.qualityData = new ItemQualityUnique(159);
 	item.isMultiplePictures = 0;
 	item.pictureID = 0;
 	item.isClassSpecific = 0;
@@ -263,7 +301,7 @@ void createComplexItem(std::string fileName)
 	// insertRunes(item, runes, 2);
 
 	// add magics
-	insertMagics5(item);
+	insertMagics6(item);
 
 	item.writeToFile(writer);
 	writer.close();
@@ -275,6 +313,7 @@ int main()
 {
 	initMagics();
 	readuStats();
-	createComplexItem("testitem12.d2i");
+	readAtmaProperties();
+	createComplexItem("testitem13.d2i");
 	return 0;
 }
