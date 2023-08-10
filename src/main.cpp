@@ -53,7 +53,7 @@ void createRune(std::string name, CommonItem &item)
 	item.equippedID = 0;
 	item.positionX = 0;
 	item.positionY = 0;
-	item.altPositionID = 5;
+	item.altPositionID = 0;
 	item.typeCodeChar = name + std::string(" ");
 	item.nItemsInSockets = 0;
 
